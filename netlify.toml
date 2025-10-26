@@ -1,0 +1,33 @@
+# Netlify configuration for Sheikh Isaqow Hassan Bora landing site
+
+[build]
+  command = ""
+  publish = "/"
+
+# Security and caching headers
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/apk/*"
+  [headers.values]
+    Content-Type = "application/vnd.android.package-archive"
+    Cache-Control = "public, max-age=604800"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "0"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Optional: redirect /download to the APK
+# [[redirects]]
+#   from = "/download"
+#   to = "/assets/apk/SheikhIsaqowApp-v1.0.2.apk"
+#   status = 302
