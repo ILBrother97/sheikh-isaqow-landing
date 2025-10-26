@@ -1,3 +1,4 @@
+Live site: https://sheikh-isaqow-hassan-bora.netlify.app
 # Sheikh Isaqow Hassan Bora — Official Landing Page
 
 Single-page site for the Android app (package `com.shkisaqowhassanbora`). Built with TailwindCSS (CDN). Mobile-friendly and Netlify-ready.
