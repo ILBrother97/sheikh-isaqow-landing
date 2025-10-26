@@ -26,6 +26,19 @@
     X-XSS-Protection = "0"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
+# Ensure correct types for robots and sitemap
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
 # Optional: redirect /download to the APK
 # [[redirects]]
 #   from = "/download"
