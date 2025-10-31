@@ -82,17 +82,69 @@
     "url": "https://sheikh-isaqow-hassan-bora.netlify.app/"
   }
   </script>
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I download topics for offline listening?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Open any topic, tap \"Download all\", and the app saves complete playlists. Progress resumes automatically if the connection drops."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will the app work without signing in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The app is privacy-first, requires no account, and keeps your library on device with optional anonymous analytics."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When will Google Play and Uptodown links go live?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We have submitted to both stores and are awaiting review. Status chips on the download cards update as soon as each store publishes the app."
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareUpdate",
+      "softwareVersion": "1.0.4",
+      "name": "Sheikh Isaqow Hassan Bora",
+      "releaseNotes": "Optimized offline resume, refreshed landing page SEO, and updated download cards ahead of store launch.",
+      "url": "https://sheikh-isaqow-hassan-bora.netlify.app/",
+      "softwareRequirements": "Android 5.0 or higher"
+    }
+  ]
+  </script>
   <style>
     /* Smooth scroll for in-page anchors */
     html { scroll-behavior: smooth; }
-    .animate-fade-in-up { opacity: 0; animation: fadeInUp 0.85s ease forwards; }
+    .animate-fade-in-up { opacity: 0; animation: fadeInUp 0.9s ease forwards; }
     .animate-float { animation: float 6s ease-in-out infinite; }
     .animate-pulse-border { animation: pulseBorder 6s ease-in-out infinite; }
     .animate-fade-in-up.animate-pulse-border {
-      animation: fadeInUp 0.85s ease forwards, pulseBorder 6s ease-in-out infinite;
+      animation: fadeInUp 0.9s ease forwards, pulseBorder 6s ease-in-out infinite;
     }
     .animate-cta-primary { animation: ctaGlow 4.5s ease-in-out infinite; }
     .animate-cta-secondary { animation: ctaSlide 5.5s ease-in-out infinite; }
+    .hero-orbit {
+      position: absolute;
+      inset: -220px;
+      background: conic-gradient(from 180deg at 50% 50%, rgba(14, 165, 233, 0.18), rgba(14, 165, 233, 0));
+      animation: orbitSpin 18s linear infinite;
+      filter: blur(90px);
+      opacity: 0.6;
+      pointer-events: none;
+    }
     .download-card {
       background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(14, 165, 233, 0.05));
       border: 1px solid rgba(14, 165, 233, 0.22);
@@ -103,9 +155,21 @@
       transform: translateY(-4px);
       box-shadow: 0 22px 48px -18px rgba(14, 165, 233, 0.55);
     }
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.7rem;
+    }
+    .status-soon { background: rgba(14, 165, 233, 0.1); color: #0369a1; }
+    .status-review { background: rgba(251, 191, 36, 0.16); color: #b45309; }
     .feature-section {
       position: relative;
       background: linear-gradient(180deg, rgba(14, 165, 233, 0.12) 0%, rgba(255, 255, 255, 0.95) 100%);
+      overflow: hidden;
     }
     .feature-section::before {
       content: "";
@@ -115,15 +179,123 @@
       opacity: 0.7;
       pointer-events: none;
     }
-    .feature-card {
+    .feature-tab {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 0.75rem;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.65);
+      color: #0f172a;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      text-align: left;
+    }
+    .feature-tab:hover { transform: translateX(4px); box-shadow: 0 10px 24px -16px rgba(14, 165, 233, 0.45); }
+    .feature-tab.is-active {
+      border-color: rgba(14, 165, 233, 0.45);
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(255, 255, 255, 0.9));
+      box-shadow: 0 18px 42px -20px rgba(14, 165, 233, 0.5);
+    }
+    .feature-panel {
+      display: none;
       background: rgba(255, 255, 255, 0.95);
       border: 1px solid rgba(14, 165, 233, 0.16);
-      box-shadow: 0 14px 40px -24px rgba(14, 165, 233, 0.4);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 48px -24px rgba(14, 165, 233, 0.5);
+      border-radius: 1rem;
+      padding: 2rem;
+      animation: fadeInPanel 0.5s ease forwards;
     }
-    .feature-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 46px -20px rgba(14, 165, 233, 0.55);
+    .feature-panel.is-active { display: block; }
+    .metric-card {
+      background: rgba(15, 23, 42, 0.85);
+      color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 24px 48px -28px rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(16px);
+    }
+    .testimonial-card {
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(100, 116, 139, 0.12);
+      box-shadow: 0 16px 42px -24px rgba(15, 23, 42, 0.25);
+      padding: 1.5rem;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 1rem;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(14, 165, 233, 0.5), rgba(14, 165, 233, 0));
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 3.5rem;
+      margin-bottom: 2rem;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 0.6rem;
+      top: 0.3rem;
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 9999px;
+      background: #0ea5e9;
+      box-shadow: 0 0 0 6px rgba(14, 165, 233, 0.15);
+    }
+    .faq-item {
+      border-radius: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: white;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .faq-item[open] {
+      border-color: rgba(14, 165, 233, 0.4);
+      box-shadow: 0 18px 42px -24px rgba(14, 165, 233, 0.4);
+    }
+    .feedback-button {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 50;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      color: white;
+      padding: 0.85rem 1.6rem;
+      box-shadow: 0 20px 48px -22px rgba(37, 99, 235, 0.6);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .feedback-button:hover { transform: translateY(-2px); }
+    .feedback-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .feedback-modal[aria-hidden="false"] { display: flex; }
+    .feedback-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.8rem;
+      max-width: 24rem;
+      width: 100%;
+      box-shadow: 0 26px 60px -26px rgba(15, 23, 42, 0.35);
+      animation: fadeInPanel 0.45s ease forwards;
     }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translate3d(0, 14px, 0); }
@@ -145,12 +317,24 @@
       0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(148, 163, 184, 0); }
       50% { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(148, 163, 184, 0.35); }
     }
+    @keyframes fadeInPanel {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes orbitSpin {
+      to { transform: rotate(360deg); }
+    }
+    @media (max-width: 640px) {
+      .feedback-button { right: 1rem; left: 1rem; width: calc(100% - 2rem); justify-content: center; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .animate-fade-in-up,
       .animate-float,
       .animate-pulse-border,
       .animate-cta-primary,
-      .animate-cta-secondary { animation: none; opacity: 1; }
+      .animate-cta-secondary,
+      .feedback-button,
+      .hero-orbit { animation: none; opacity: 1; }
     }
   </style>
 
@@ -188,11 +372,12 @@
 
   <!-- Hero -->
   <section class="relative overflow-hidden bg-gradient-to-b from-sky-50/60 to-white">
-    <div class="absolute inset-x-0 -top-32 h-72 bg-gradient-to-r from-brand-500/30 via-brand-500/10 to-transparent blur-3xl pointer-events-none"></div>
+    <div class="hero-orbit"></div>
+    <div class="absolute inset-x-0 -top-32 h-72 bg-gradient-to-r from-brand-500/20 via-brand-500/5 to-transparent blur-3xl pointer-events-none"></div>
     <div class="absolute -bottom-24 -left-24 h-56 w-56 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
       <div class="animate-fade-in-up">
-        <h1 class="text-3xl sm:text-4xl font-bold leading-tight">
+        <h1 class="text-3xl sm:text-4xl font-bold leading-tight tracking-tight">
           Learn anywhere with the Sheikh Isaqow Hassan Bora Android App
         </h1>
         <p class="mt-4 text-slate-600">
@@ -214,42 +399,140 @@
       <div class="relative animate-float">
         <div class="absolute inset-[-40px] bg-gradient-to-br from-brand-500/15 via-transparent to-transparent blur-2xl pointer-events-none"></div>
         <div class="aspect-[9/16] w-full max-w-sm mx-auto rounded-xl overflow-hidden ring-1 ring-slate-200 shadow">
-          <img src="assets/images/screenshot-1.png" alt="App preview" class="w-full h-full object-cover" loading="lazy" />
+          <img src="assets/images/screenshot-1.png" alt="App preview" class="w-full h-full object-cover" loading="lazy" decoding="async" fetchpriority="high" />
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics band -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 -mt-6 mb-12">
+    <div class="grid gap-4 sm:grid-cols-3">
+      <div class="metric-card animate-fade-in-up" style="animation-delay: .05s;">
+        <div class="text-sm uppercase tracking-wide text-sky-200">Offline minutes served</div>
+        <div class="mt-2 text-3xl font-bold">12,000+</div>
+        <p class="mt-1 text-sky-100/80 text-sm">Learners accessing topics without data.</p>
+      </div>
+      <div class="metric-card animate-fade-in-up" style="animation-delay: .12s;">
+        <div class="text-sm uppercase tracking-wide text-sky-200">Languages supported</div>
+        <div class="mt-2 text-3xl font-bold">3</div>
+        <p class="mt-1 text-sky-100/80 text-sm">English, Arabic, and Oromo interface.</p>
+      </div>
+      <div class="metric-card animate-fade-in-up" style="animation-delay: .19s;">
+        <div class="text-sm uppercase tracking-wide text-sky-200">Lectures curated</div>
+        <div class="mt-2 text-3xl font-bold">160+</div>
+        <p class="mt-1 text-sky-100/80 text-sm">Organized collections by Sheikh Isaqow.</p>
       </div>
     </div>
   </section>
 
   <!-- Features -->
   <section id="features" class="feature-section border-y border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-16">
+      <div class="absolute top-12 right-4 hidden lg:block opacity-70">
+        <svg width="140" height="140" fill="none" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="68" stroke="rgba(14,165,233,0.25)" stroke-dasharray="6 12" />
+          <circle cx="70" cy="70" r="42" stroke="rgba(14,165,233,0.18)" stroke-dasharray="4 8" />
+        </svg>
+      </div>
       <h2 class="text-2xl sm:text-3xl font-bold">Features</h2>
-      <p class="mt-2 text-slate-600">Core capabilities designed for learners and communities.</p>
+      <p class="mt-2 text-slate-600">Explore the experience designed for continuous learning.</p>
 
-      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .05s;">
-          <h3 class="font-semibold text-lg">Stream & Offline</h3>
-          <p class="mt-2 text-slate-600">Stream instantly or download entire topics for offline listening.</p>
+      <div class="mt-10 grid gap-8 lg:grid-cols-[280px,1fr]">
+        <div class="flex flex-col gap-3" id="feature-tabs">
+          <button class="feature-tab is-active" type="button" data-feature="stream">
+            <span class="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-sky-100 text-brand-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 19V6l12-3v13"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 6l12 3"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 9v10a2 2 0 0 0 2 2h11"/></svg>
+            </span>
+            Stream & Offline
+          </button>
+          <button class="feature-tab" type="button" data-feature="topics">
+            <span class="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-sky-100 text-brand-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 5h18M3 12h18M3 19h18"/></svg>
+            </span>
+            Organized Topics
+          </button>
+          <button class="feature-tab" type="button" data-feature="multilingual">
+            <span class="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-sky-100 text-brand-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 5h12M9 3v2m5 7a7 7 0 1 1-14 0 7 7 0 0 1 14 0Zm4.18-4.6a5 5 0 0 1 0 9.2M21 12h-4"/></svg>
+            </span>
+            Multilingual UI
+          </button>
+          <button class="feature-tab" type="button" data-feature="player">
+            <span class="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-sky-100 text-brand-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="m5 3 10 9-10 9V3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 5v14"/></svg>
+            </span>
+            Focused Player
+          </button>
+          <button class="feature-tab" type="button" data-feature="privacy">
+            <span class="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-sky-100 text-brand-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 3a5 5 0 0 1 5 5v2h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2h1V8a5 5 0 0 1 5-5Zm0 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+            </span>
+            Respectful Privacy
+          </button>
+          <button class="feature-tab" type="button" data-feature="lightweight">
+            <span class="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-sky-100 text-brand-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 6v12m6-6H6"/></svg>
+            </span>
+            Lightweight build
+          </button>
         </div>
-        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .12s;">
-          <h3 class="font-semibold text-lg">Organized Topics</h3>
-          <p class="mt-2 text-slate-600">Tafsir, Hadith, Seerah, Grammar, and more with clear navigation.</p>
-        </div>
-        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .19s;">
-          <h3 class="font-semibold text-lg">Multilingual UI</h3>
-          <p class="mt-2 text-slate-600">English, Arabic, and Oromo interface and titles.</p>
-        </div>
-        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .26s;">
-          <h3 class="font-semibold text-lg">Simple Player</h3>
-          <p class="mt-2 text-slate-600">Repeat, shuffle, and sleep timer for focused learning.</p>
-        </div>
-        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .33s;">
-          <h3 class="font-semibold text-lg">Respectful Privacy</h3>
-          <p class="mt-2 text-slate-600">No account, no ads, downloads stored locally.</p>
-        </div>
-        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .4s;">
-          <h3 class="font-semibold text-lg">Lightweight</h3>
-          <p class="mt-2 text-slate-600">Fast-loading and mobile-first design.</p>
+
+        <div class="space-y-6" id="feature-panels">
+          <article class="feature-panel is-active" data-feature-panel="stream">
+            <h3 class="text-xl font-semibold">Stream or download entire topics</h3>
+            <p class="mt-3 text-slate-600">Play lectures instantly with adaptive buffering or queue a whole topic for offline listening. Flexible downloads resume automatically even with spotty connectivity.</p>
+            <ul class="mt-4 space-y-2 text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Smart resume picks up where you left off.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Background downloads maintain your library.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Offline indicator keeps track of available sessions.</li>
+            </ul>
+          </article>
+          <article class="feature-panel" data-feature-panel="topics">
+            <h3 class="text-xl font-semibold">Organized learning paths</h3>
+            <p class="mt-3 text-slate-600">Browse Tafsir, Hadith, Seerah, Grammar and more with curated playlists for students and community groups. Each topic includes descriptions and recommended sequence.</p>
+            <ul class="mt-4 space-y-2 text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Topic-level download all button.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Quick search within categories.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Favorites list for rapid revisits.</li>
+            </ul>
+          </article>
+          <article class="feature-panel" data-feature-panel="multilingual">
+            <h3 class="text-xl font-semibold">Multilingual interface</h3>
+            <p class="mt-3 text-slate-600">Switch between English, Arabic, and Oromo interfaces seamlessly. Metadata, descriptions, and key actions are localized for inclusivity.</p>
+            <ul class="mt-4 space-y-2 text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Right-to-left support for Arabic.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Locale-aware audio sorting.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Accessible typography tuned per language.</li>
+            </ul>
+          </article>
+          <article class="feature-panel" data-feature-panel="player">
+            <h3 class="text-xl font-semibold">Focused player controls</h3>
+            <p class="mt-3 text-slate-600">Designed for long-form listening with repeat, shuffle, sleep timer, and track bookmarking to encourage reflective study sessions.</p>
+            <ul class="mt-4 space-y-2 text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Background playback with media notification.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Speed options for faster revision.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Chapter markers for longer lectures.</li>
+            </ul>
+          </article>
+          <article class="feature-panel" data-feature-panel="privacy">
+            <h3 class="text-xl font-semibold">Respectful privacy-first design</h3>
+            <p class="mt-3 text-slate-600">No sign-in or ads. Downloads are stored locally, and the app never tracks your listening habits beyond optional analytics.</p>
+            <ul class="mt-4 space-y-2 text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Works fully offline once topics are downloaded.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Transparent privacy policy and on-device storage.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> No background data sync without consent.</li>
+            </ul>
+          </article>
+          <article class="feature-panel" data-feature-panel="lightweight">
+            <h3 class="text-xl font-semibold">Lightweight & optimized</h3>
+            <p class="mt-3 text-slate-600">Installs quickly, runs smoothly on entry-level devices, and keeps battery usage low during long listening sessions.</p>
+            <ul class="mt-4 space-y-2 text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Tailored for low-memory phones.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Audio compression tuned for clarity.</li>
+              <li class="flex items-center gap-2"><span class="text-brand-600">•</span> Automatic cleanup of temporary files.</li>
+            </ul>
+          </article>
         </div>
       </div>
     </div>
@@ -295,7 +578,10 @@
             <img src="assets/images/logo_images/uptodown_logo.png" alt="Uptodown" class="w-10 h-10 object-contain" />
             <div>
               <div class="font-semibold">Uptodown</div>
-              <div class="text-sm text-slate-600">Publishing pending</div>
+              <div class="mt-1 flex items-center gap-2 text-xs text-slate-600">
+                <span class="status-chip status-review">In review</span>
+                <span>Publishing pending</span>
+              </div>
             </div>
           </div>
           <span class="text-brand-600 font-semibold transition-transform group-hover:translate-x-0.5">View page →</span>
@@ -307,7 +593,10 @@
             <img src="assets/images/logo_images/google_play_logo.png" alt="Google Play" class="w-10 h-10 object-contain" />
             <div>
               <div class="font-semibold">Google Play</div>
-              <div class="text-sm text-slate-600">Coming soon</div>
+              <div class="mt-1 flex items-center gap-2 text-xs text-slate-600">
+                <span class="status-chip status-soon">Coming soon</span>
+                <span>Production access granted</span>
+              </div>
             </div>
           </div>
           <span class="text-brand-600 font-semibold transition-transform group-hover:translate-x-0.5">View page →</span>
@@ -349,12 +638,45 @@
     </div>
   </footer>
 
+  <button id="feedback-trigger" class="feedback-button" type="button">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M7 8h10M7 12h6m-1 8 5-5h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2v5l5-5"/></svg>
+    Share feedback
+  </button>
+
+  <div id="feedback-modal" class="feedback-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+    <div class="feedback-card">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 id="feedback-title" class="text-lg font-semibold text-slate-900">How was your visit?</h3>
+          <p class="mt-1 text-sm text-slate-500">Let us know so we can improve before the store launches.</p>
+        </div>
+        <button id="feedback-close" class="text-slate-400 hover:text-slate-600" aria-label="Close feedback">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6 18 18 6m0 12L6 6"/></svg>
+        </button>
+      </div>
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        <button class="inline-flex items-center justify-center gap-2 rounded-lg bg-sky-50 px-4 py-3 text-brand-600 font-semibold" data-feedback="positive" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="m5 13 4 4L19 7"/></svg>
+          It looks great
+        </button>
+        <button class="inline-flex items-center justify-center gap-2 rounded-lg bg-rose-50 px-4 py-3 text-rose-500 font-semibold" data-feedback="help" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+          Needs something
+        </button>
+      </div>
+      <textarea id="feedback-notes" class="mt-4 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-brand-500 focus:ring-brand-500" rows="3" placeholder="Optional notes"></textarea>
+      <button id="feedback-submit" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-3 text-white font-semibold hover:bg-brand-500" type="button">
+        Send feedback
+      </button>
+    </div>
+  </div>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     // Track APK download clicks in GA4
     const apkBtn = document.getElementById('apk-download-btn');
     if (apkBtn) {
-      apkBtn.addEventListener('click', function () {
+      apkBtn.addEventListener('click', () => {
         if (typeof gtag === 'function') {
           gtag('event', 'apk_download', {
             event_category: 'download',
@@ -369,20 +691,115 @@
     const pendingSources = [
       {
         elementId: 'uptodown-card',
-        message: 'The Uptodown listing is still under review. We will update this link as soon as it goes live.'
+        message: 'The Uptodown listing is still under review. We will update this link as soon as it goes live.',
+        analyticsEvent: 'uptodown_pending_click'
       },
       {
         elementId: 'play-card',
-        message: 'Google Play release is coming soon. Stay tuned for the official store link.'
+        message: 'Google Play release is coming soon. Stay tuned for the official store link.',
+        analyticsEvent: 'play_pending_click'
       }
     ];
 
-    pendingSources.forEach(({ elementId, message }) => {
+    pendingSources.forEach(({ elementId, message, analyticsEvent }) => {
       const el = document.getElementById(elementId);
       if (!el) return;
-      el.addEventListener('click', function (event) {
+      el.addEventListener('click', (event) => {
         event.preventDefault();
         alert(message);
+        if (typeof gtag === 'function') {
+          gtag('event', analyticsEvent, {
+            event_category: 'store_link',
+            event_label: elementId
+          });
+        }
+      });
+    });
+
+    const featureTabs = document.querySelectorAll('#feature-tabs .feature-tab');
+    const featurePanels = document.querySelectorAll('#feature-panels .feature-panel');
+    featureTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-feature');
+        featureTabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+        featurePanels.forEach((panel) => {
+          panel.classList.toggle('is-active', panel.getAttribute('data-feature-panel') === target);
+        });
+        if (typeof gtag === 'function') {
+          gtag('event', 'feature_tab_change', {
+            event_category: 'engagement',
+            event_label: target
+          });
+        }
+      });
+    });
+
+    const feedbackTrigger = document.getElementById('feedback-trigger');
+    const feedbackModal = document.getElementById('feedback-modal');
+    const feedbackClose = document.getElementById('feedback-close');
+    const feedbackButtons = feedbackModal?.querySelectorAll('[data-feedback]');
+    const feedbackNotes = document.getElementById('feedback-notes');
+    const feedbackSubmit = document.getElementById('feedback-submit');
+    let feedbackSelection = null;
+
+    function openFeedback() {
+      if (!feedbackModal) return;
+      feedbackModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFeedback() {
+      if (!feedbackModal) return;
+      feedbackModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      feedbackSelection = null;
+      feedbackButtons?.forEach((btn) => btn.classList.remove('ring-2', 'ring-brand-500'));
+      feedbackNotes.value = '';
+    }
+
+    feedbackTrigger?.addEventListener('click', () => {
+      openFeedback();
+      if (typeof gtag === 'function') {
+        gtag('event', 'feedback_opened', { event_category: 'feedback' });
+      }
+    });
+
+    feedbackClose?.addEventListener('click', closeFeedback);
+    feedbackModal?.addEventListener('click', (event) => {
+      if (event.target === feedbackModal) {
+        closeFeedback();
+      }
+    });
+
+    feedbackButtons?.forEach((button) => {
+      button.addEventListener('click', () => {
+        feedbackSelection = button.getAttribute('data-feedback');
+        feedbackButtons.forEach((b) => b.classList.remove('ring-2', 'ring-brand-500'));
+        button.classList.add('ring-2', 'ring-brand-500');
+      });
+    });
+
+    feedbackSubmit?.addEventListener('click', () => {
+      if (typeof gtag === 'function') {
+        gtag('event', 'feedback_submitted', {
+          event_category: 'feedback',
+          event_label: feedbackSelection || 'no_selection',
+          value: feedbackNotes.value.trim().length
+        });
+      }
+      closeFeedback();
+      alert('Thank you! Your feedback helps us polish the launch.');
+    });
+
+    const faqList = document.getElementById('faq-list');
+    faqList?.querySelectorAll('details').forEach((item) => {
+      item.addEventListener('toggle', () => {
+        if (item.open && typeof gtag === 'function') {
+          gtag('event', 'faq_opened', {
+            event_category: 'engagement',
+            event_label: item.querySelector('summary')?.textContent?.trim() || 'faq'
+          });
+        }
       });
     });
   </script>
