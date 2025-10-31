@@ -88,6 +88,9 @@
     .animate-fade-in-up { opacity: 0; animation: fadeInUp 0.85s ease forwards; }
     .animate-float { animation: float 6s ease-in-out infinite; }
     .animate-pulse-border { animation: pulseBorder 6s ease-in-out infinite; }
+    .animate-fade-in-up.animate-pulse-border {
+      animation: fadeInUp 0.85s ease forwards, pulseBorder 6s ease-in-out infinite;
+    }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translate3d(0, 14px, 0); }
       to { opacity: 1; transform: translate3d(0, 0, 0); }
