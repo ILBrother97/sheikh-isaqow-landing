@@ -91,6 +91,40 @@
     .animate-fade-in-up.animate-pulse-border {
       animation: fadeInUp 0.85s ease forwards, pulseBorder 6s ease-in-out infinite;
     }
+    .animate-cta-primary { animation: ctaGlow 4.5s ease-in-out infinite; }
+    .animate-cta-secondary { animation: ctaSlide 5.5s ease-in-out infinite; }
+    .download-card {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(14, 165, 233, 0.05));
+      border: 1px solid rgba(14, 165, 233, 0.22);
+      box-shadow: 0 16px 40px -18px rgba(14, 165, 233, 0.5);
+      backdrop-filter: blur(12px);
+    }
+    .download-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 48px -18px rgba(14, 165, 233, 0.55);
+    }
+    .feature-section {
+      position: relative;
+      background: linear-gradient(180deg, rgba(14, 165, 233, 0.12) 0%, rgba(255, 255, 255, 0.95) 100%);
+    }
+    .feature-section::before {
+      content: "";
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .feature-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(14, 165, 233, 0.16);
+      box-shadow: 0 14px 40px -24px rgba(14, 165, 233, 0.4);
+      backdrop-filter: blur(10px);
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 46px -20px rgba(14, 165, 233, 0.55);
+    }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translate3d(0, 14px, 0); }
       to { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -103,10 +137,20 @@
       0%, 100% { box-shadow: 0 0 0 rgba(14, 165, 233, 0); }
       50% { box-shadow: 0 12px 32px rgba(14, 165, 233, 0.18); }
     }
+    @keyframes ctaGlow {
+      0%, 100% { box-shadow: 0 0 0 rgba(14, 165, 233, 0); transform: translateY(0); }
+      50% { box-shadow: 0 18px 38px rgba(14, 165, 233, 0.38); transform: translateY(-2px); }
+    }
+    @keyframes ctaSlide {
+      0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(148, 163, 184, 0); }
+      50% { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(148, 163, 184, 0.35); }
+    }
     @media (prefers-reduced-motion: reduce) {
       .animate-fade-in-up,
       .animate-float,
-      .animate-pulse-border { animation: none; opacity: 1; }
+      .animate-pulse-border,
+      .animate-cta-primary,
+      .animate-cta-secondary { animation: none; opacity: 1; }
     }
   </style>
 
@@ -155,10 +199,10 @@
           Islamic Education App sharing Sheikh Isaqow Hassan Bora’s lectures and content. Browse topics, stream, or download for offline listening. Multilingual UI (English, Arabic, Oromo).
         </p>
         <div class="mt-6 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-          <a href="#download" class="inline-flex items-center justify-center rounded-md bg-brand-600 px-6 py-3 text-white font-semibold hover:bg-brand-500 transition">
+          <a href="#download" class="inline-flex items-center justify-center rounded-md bg-brand-600 px-6 py-3 text-white font-semibold hover:bg-brand-500 transition animate-cta-primary">
             Download Now
           </a>
-          <a href="#features" class="inline-flex items-center justify-center rounded-md border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50 transition">
+          <a href="#features" class="inline-flex items-center justify-center rounded-md border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50 transition animate-cta-secondary">
             View Features
           </a>
           <span class="inline-flex items-center self-start sm:self-auto rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-xs font-semibold">v1.0.4</span>
@@ -177,33 +221,33 @@
   </section>
 
   <!-- Features -->
-  <section id="features" class="bg-slate-50 border-y border-slate-200">
+  <section id="features" class="feature-section border-y border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
       <h2 class="text-2xl sm:text-3xl font-bold">Features</h2>
       <p class="mt-2 text-slate-600">Core capabilities designed for learners and communities.</p>
 
       <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-6 bg-white rounded-lg border border-slate-200 shadow-sm transition hover:shadow-md hover:-translate-y-0.5 animate-fade-in-up" style="animation-delay: .05s;">
+        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .05s;">
           <h3 class="font-semibold text-lg">Stream & Offline</h3>
           <p class="mt-2 text-slate-600">Stream instantly or download entire topics for offline listening.</p>
         </div>
-        <div class="p-6 bg-white rounded-lg border border-slate-200 shadow-sm transition hover:shadow-md hover:-translate-y-0.5 animate-fade-in-up" style="animation-delay: .12s;">
+        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .12s;">
           <h3 class="font-semibold text-lg">Organized Topics</h3>
           <p class="mt-2 text-slate-600">Tafsir, Hadith, Seerah, Grammar, and more with clear navigation.</p>
         </div>
-        <div class="p-6 bg-white rounded-lg border border-slate-200 shadow-sm transition hover:shadow-md hover:-translate-y-0.5 animate-fade-in-up" style="animation-delay: .19s;">
+        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .19s;">
           <h3 class="font-semibold text-lg">Multilingual UI</h3>
           <p class="mt-2 text-slate-600">English, Arabic, and Oromo interface and titles.</p>
         </div>
-        <div class="p-6 bg-white rounded-lg border border-slate-200 shadow-sm transition hover:shadow-md hover:-translate-y-0.5 animate-fade-in-up" style="animation-delay: .26s;">
+        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .26s;">
           <h3 class="font-semibold text-lg">Simple Player</h3>
           <p class="mt-2 text-slate-600">Repeat, shuffle, and sleep timer for focused learning.</p>
         </div>
-        <div class="p-6 bg-white rounded-lg border border-slate-200 shadow-sm transition hover:shadow-md hover:-translate-y-0.5 animate-fade-in-up" style="animation-delay: .33s;">
+        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .33s;">
           <h3 class="font-semibold text-lg">Respectful Privacy</h3>
           <p class="mt-2 text-slate-600">No account, no ads, downloads stored locally.</p>
         </div>
-        <div class="p-6 bg-white rounded-lg border border-slate-200 shadow-sm transition hover:shadow-md hover:-translate-y-0.5 animate-fade-in-up" style="animation-delay: .4s;">
+        <div class="p-6 rounded-lg transition animate-fade-in-up feature-card" style="animation-delay: .4s;">
           <h3 class="font-semibold text-lg">Lightweight</h3>
           <p class="mt-2 text-slate-600">Fast-loading and mobile-first design.</p>
         </div>
@@ -234,7 +278,7 @@
 
       <div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         <!-- Direct APK -->
-        <a id="apk-download-btn" href="assets/apk/SheikhIsaqowApp-v1.0.4.apk" class="group flex items-center justify-between rounded-lg border border-slate-200 hover:border-brand-600 bg-white px-5 py-4 shadow-sm hover:shadow-md transition animate-fade-in-up animate-pulse-border">
+        <a id="apk-download-btn" href="assets/apk/SheikhIsaqowApp-v1.0.4.apk" class="group flex items-center justify-between rounded-lg border hover:border-brand-600 px-5 py-4 shadow-sm transition animate-fade-in-up animate-pulse-border download-card">
           <div class="flex items-center gap-3">
             <img src="assets/images/icon.png" alt="APK" class="w-10 h-10 rounded object-contain" />
             <div>
@@ -246,7 +290,7 @@
         </a>
 
         <!-- Uptodown -->
-        <a href="https://UPTODOWN_LINK" target="_blank" rel="noopener" class="group flex items-center justify-between rounded-lg border border-slate-200 hover:border-brand-600 bg-white px-5 py-4 shadow-sm hover:shadow-md transition animate-fade-in-up animate-pulse-border" style="animation-delay: .12s;">
+        <a href="https://UPTODOWN_LINK" target="_blank" rel="noopener" class="group flex items-center justify-between rounded-lg border hover:border-brand-600 px-5 py-4 shadow-sm transition animate-fade-in-up animate-pulse-border download-card" style="animation-delay: .12s;">
           <div class="flex items-center gap-3">
             <img src="assets/images/logo_images/uptodown_logo.png" alt="Uptodown" class="w-10 h-10 object-contain" />
             <div>
@@ -258,7 +302,7 @@
         </a>
 
         <!-- Play Store -->
-        <a href="https://PLAY_STORE_LINK" target="_blank" rel="noopener" class="group flex items-center justify-between rounded-lg border border-slate-200 hover:border-brand-600 bg-white px-5 py-4 shadow-sm hover:shadow-md transition animate-fade-in-up animate-pulse-border" style="animation-delay: .19s;">
+        <a href="https://PLAY_STORE_LINK" target="_blank" rel="noopener" class="group flex items-center justify-between rounded-lg border hover:border-brand-600 px-5 py-4 shadow-sm transition animate-fade-in-up animate-pulse-border download-card" style="animation-delay: .19s;">
           <div class="flex items-center gap-3">
             <img src="assets/images/logo_images/google_play_logo.png" alt="Google Play" class="w-10 h-10 object-contain" />
             <div>
