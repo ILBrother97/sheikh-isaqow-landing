@@ -76,6 +76,10 @@ exports.handler = async function(event, context) {
     const downloadsData = await downloadsResponse.json();
     const usersData = await usersResponse.json();
     
+    // Log responses for debugging
+    console.log('Downloads response:', JSON.stringify(downloadsData, null, 2));
+    console.log('Users response:', JSON.stringify(usersData, null, 2));
+    
     // Extract values
     const downloads = downloadsData.rows?.[0]?.metricValues?.[0]?.value || '0';
     const activeUsers = usersData.rows?.[0]?.metricValues?.[0]?.value || '0';
