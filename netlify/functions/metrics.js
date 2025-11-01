@@ -78,6 +78,8 @@ exports.handler = async function(event, context) {
     // Log responses for debugging
     console.log('Downloads response:', JSON.stringify(downloadsData, null, 2));
     console.log('Users response:', JSON.stringify(usersData, null, 2));
+    console.log('Downloads rows count:', downloadsData.rows?.length || 0);
+    console.log('Users rows count:', usersData.rows?.length || 0);
     
     // Extract values with better error handling
     let downloads = '0';
