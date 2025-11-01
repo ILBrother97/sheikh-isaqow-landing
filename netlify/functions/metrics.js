@@ -42,6 +42,7 @@ exports.handler = async function(event, context) {
         },
         body: JSON.stringify({
           dateRanges: [{ startDate: '2024-01-01', endDate: 'today' }],
+          dimensions: [{ name: 'eventName' }],
           metrics: [{ name: 'eventCount' }],
           dimensionFilter: {
             filter: {
