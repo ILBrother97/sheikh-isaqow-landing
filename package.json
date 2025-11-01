@@ -4,6 +4,7 @@
   "description": "Landing page for Sheikh Isaqow Hassan Bora Android App",
   "private": true,
   "dependencies": {
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "google-auth-library": "^8.9.0"
   }
 }

@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const { GoogleAuth } = require('google-auth-library');
 
 exports.handler = async function(event, context) {
   const GA4_PROPERTY_ID = '440648046'; // Your GA4 property ID
@@ -19,17 +20,15 @@ exports.handler = async function(event, context) {
     // Parse service account credentials
     const credentials = JSON.parse(GA4_CREDENTIALS);
     
-    // Get OAuth2 access token
-    const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-        assertion: await createJWT(credentials)
-      })
+    // Use Google Auth Library for proper authentication
+    const auth = new GoogleAuth({
+      credentials: credentials,
+      scopes: ['https://www.googleapis.com/auth/analytics.readonly']
     });
     
-    const { access_token } = await tokenResponse.json();
+    const client = await auth.getClient();
+    const accessToken = await client.getAccessToken();
+    const access_token = accessToken.token;
     
     // Fetch downloads (apk_download event count)
     const downloadsResponse = await fetch(
@@ -130,42 +129,3 @@ exports.handler = async function(event, context) {
     };
   }
 };
-
-// Helper function to create JWT for service account authentication
-async function createJWT(credentials) {
-  const header = {
-    alg: 'RS256',
-    typ: 'JWT',
-    kid: credentials.private_key_id
-  };
-  
-  const now = Math.floor(Date.now() / 1000);
-  const claim = {
-    iss: credentials.client_email,
-    scope: 'https://www.googleapis.com/auth/analytics.readonly',
-    aud: 'https://oauth2.googleapis.com/token',
-    exp: now + 3600,
-    iat: now
-  };
-  
-  const encodedHeader = base64url(JSON.stringify(header));
-  const encodedClaim = base64url(JSON.stringify(claim));
-  const signatureInput = `${encodedHeader}.${encodedClaim}`;
-  
-  // Sign with private key
-  const crypto = require('crypto');
-  const sign = crypto.createSign('RSA-SHA256');
-  sign.update(signatureInput);
-  const signature = sign.sign(credentials.private_key, 'base64');
-  const encodedSignature = base64url(signature);
-  
-  return `${signatureInput}.${encodedSignature}`;
-}
-
-function base64url(input) {
-  const base64 = Buffer.from(input).toString('base64');
-  return base64
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
-}
