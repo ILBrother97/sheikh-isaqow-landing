@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const { GoogleAuth } = require('google-auth-library');
 
 exports.handler = async function(event, context) {
-  const GA4_PROPERTY_ID = '440648046'; // Your GA4 property ID
+  const GA4_PROPERTY_ID = '510252078'; // Your GA4 property ID
   const GA4_CREDENTIALS = process.env.GA4_CREDENTIALS; // Service account JSON from Netlify env
   
   if (!GA4_CREDENTIALS) {
