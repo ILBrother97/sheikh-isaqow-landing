@@ -80,9 +80,23 @@ exports.handler = async function(event, context) {
     console.log('Downloads response:', JSON.stringify(downloadsData, null, 2));
     console.log('Users response:', JSON.stringify(usersData, null, 2));
     
-    // Extract values
-    const downloads = downloadsData.rows?.[0]?.metricValues?.[0]?.value || '0';
-    const activeUsers = usersData.rows?.[0]?.metricValues?.[0]?.value || '0';
+    // Extract values with better error handling
+    let downloads = '0';
+    let activeUsers = '0';
+    
+    // Check if downloads response has data
+    if (downloadsData.rows && downloadsData.rows.length > 0) {
+      downloads = downloadsData.rows[0].metricValues?.[0]?.value || '0';
+    } else if (downloadsData.error) {
+      console.error('Downloads API error:', downloadsData.error);
+    }
+    
+    // Check if users response has data
+    if (usersData.rows && usersData.rows.length > 0) {
+      activeUsers = usersData.rows[0].metricValues?.[0]?.value || '0';
+    } else if (usersData.error) {
+      console.error('Users API error:', usersData.error);
+    }
     
     // Format numbers with commas
     const formatNumber = (num) => {
