@@ -1,7 +1,7 @@
 # Netlify configuration for Sheikh Isaqow Hassan Bora landing site
 
 [build]
-  command = ""
+  command = "npm install"
   publish = "/"
   functions = "netlify/functions"
 

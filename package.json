@@ -1,0 +1,9 @@
+{
+  "name": "sheikh-isaqow-landing",
+  "version": "1.0.0",
+  "description": "Landing page for Sheikh Isaqow Hassan Bora Android App",
+  "private": true,
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}
