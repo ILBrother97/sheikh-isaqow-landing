@@ -948,14 +948,16 @@
 
     // Fetch real-time metrics from Google Analytics 4 via Netlify Function
     async function fetchGA4Metrics() {
-      const fallbackDownloads = '1,200+';
-      const fallbackUsers = '850+';
+      const fallbackDownloads = '19+';
+      const fallbackUsers = '45+';
       
       try {
-        const response = await fetch('/.netlify/functions/metrics');
+        // Try Netlify Function first
+        let response = await fetch('/.netlify/functions/metrics');
         
+        // If function fails, try static JSON file
         if (!response.ok) {
-          throw new Error('Failed to fetch metrics');
+          response = await fetch('/metrics.json');
         }
         
         const data = await response.json();
@@ -969,8 +971,8 @@
           console.log('Metrics updated:', new Date(data.lastUpdated).toLocaleString());
         }
       } catch (error) {
-        console.error('Failed to fetch GA4 metrics:', error);
-        // Use fallback values if API fails
+        console.error('Failed to fetch metrics:', error);
+        // Use fallback values if both fail
         document.getElementById('metric-downloads').textContent = fallbackDownloads;
         document.getElementById('metric-users').textContent = fallbackUsers;
       }
