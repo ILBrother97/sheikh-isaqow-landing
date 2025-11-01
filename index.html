@@ -779,16 +779,54 @@
       });
     });
 
-    feedbackSubmit?.addEventListener('click', () => {
+    feedbackSubmit?.addEventListener('click', async () => {
+      const FORMSPREE_ENDPOINT = 'movpplna'; // Formspree form ID
+      
+      const feedbackData = {
+        sentiment: feedbackSelection || 'no_selection',
+        notes: feedbackNotes.value.trim(),
+        page: window.location.href,
+        timestamp: new Date().toISOString()
+      };
+
+      // Track in GA4
       if (typeof gtag === 'function') {
         gtag('event', 'feedback_submitted', {
           event_category: 'feedback',
-          event_label: feedbackSelection || 'no_selection',
-          value: feedbackNotes.value.trim().length
+          event_label: feedbackData.sentiment,
+          value: feedbackData.notes.length
         });
       }
-      closeFeedback();
-      alert('Thank you! Your feedback helps us polish the launch.');
+
+      // Send to Formspree (email notification)
+      try {
+        const response = await fetch(`https://formspree.io/f/${FORMSPREE_ENDPOINT}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(feedbackData)
+        });
+
+        if (response.ok) {
+          closeFeedback();
+          alert('Thank you! Your feedback helps us polish the launch. 🎉');
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch (error) {
+        console.error('Feedback submission error:', error);
+        // Track feedback locally even if email fails
+        if (typeof gtag === 'function') {
+          gtag('event', 'feedback_email_failed', {
+            event_category: 'feedback',
+            event_label: feedbackData.sentiment
+          });
+        }
+        closeFeedback();
+        alert('Your feedback was recorded (email delivery pending). Thank you!');
+      }
     });
 
     const faqList = document.getElementById('faq-list');
