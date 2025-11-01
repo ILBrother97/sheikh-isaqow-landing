@@ -479,19 +479,19 @@
   <section class="max-w-6xl mx-auto px-4 sm:px-6 -mt-6 mb-12">
     <div class="grid gap-4 sm:grid-cols-3">
       <div class="metric-card animate-fade-in-up" style="animation-delay: .05s;">
-        <div class="metric-label">Offline minutes served</div>
-        <div class="metric-value">12,000+</div>
-        <p class="metric-description">Learners accessing topics without data.</p>
+        <div class="metric-label">Total downloads</div>
+        <div class="metric-value" id="metric-downloads">—</div>
+        <p class="metric-description">APK installs across all sources.</p>
       </div>
       <div class="metric-card animate-fade-in-up" style="animation-delay: .12s;">
-        <div class="metric-label">Languages supported</div>
-        <div class="metric-value">3</div>
-        <p class="metric-description">English, Arabic, and Oromo interface.</p>
+        <div class="metric-label">Active users</div>
+        <div class="metric-value" id="metric-users">—</div>
+        <p class="metric-description">Learners engaging with content.</p>
       </div>
       <div class="metric-card animate-fade-in-up" style="animation-delay: .19s;">
         <div class="metric-label">Lectures curated</div>
-        <div class="metric-value">160+</div>
-        <p class="metric-description">Organized collections by Sheikh Isaqow.</p>
+        <div class="metric-value">852</div>
+        <p class="metric-description">Audio lessons by Sheikh Isaqow.</p>
       </div>
     </div>
   </section>
@@ -940,6 +940,35 @@
         slideshowTimer = setInterval(nextSlide, slideInterval);
       });
     });
+
+    // Fetch real-time metrics from Google Analytics 4
+    async function fetchGA4Metrics() {
+      // This requires GA4 Data API setup with proper authentication
+      // For now, we'll use fallback values until you set up the API
+      
+      // Option 1: Hardcode current values (update manually)
+      const fallbackDownloads = '1,200+';
+      const fallbackUsers = '850+';
+      
+      // Option 2: Fetch from your own backend endpoint (recommended)
+      // try {
+      //   const response = await fetch('YOUR_BACKEND_ENDPOINT/metrics');
+      //   const data = await response.json();
+      //   document.getElementById('metric-downloads').textContent = data.downloads;
+      //   document.getElementById('metric-users').textContent = data.activeUsers;
+      // } catch (error) {
+      //   console.error('Failed to fetch metrics:', error);
+      //   document.getElementById('metric-downloads').textContent = fallbackDownloads;
+      //   document.getElementById('metric-users').textContent = fallbackUsers;
+      // }
+      
+      // For now, display fallback values
+      document.getElementById('metric-downloads').textContent = fallbackDownloads;
+      document.getElementById('metric-users').textContent = fallbackUsers;
+    }
+
+    // Load metrics on page load
+    fetchGA4Metrics();
   </script>
 </body>
 </html>
