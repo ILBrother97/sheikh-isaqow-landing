@@ -210,12 +210,33 @@
     }
     .feature-panel.is-active { display: block; }
     .metric-card {
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(51, 65, 85, 0.95);
       color: white;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 24px 48px -28px rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(16px);
+      border-radius: 0.75rem;
+      padding: 1.75rem 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    .metric-card .metric-label {
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .metric-card .metric-value {
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-top: 0.5rem;
+      color: white;
+    }
+    .metric-card .metric-description {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.4;
     }
     .testimonial-card {
       border-radius: 1rem;
@@ -458,19 +479,19 @@
   <section class="max-w-6xl mx-auto px-4 sm:px-6 -mt-6 mb-12">
     <div class="grid gap-4 sm:grid-cols-3">
       <div class="metric-card animate-fade-in-up" style="animation-delay: .05s;">
-        <div class="text-sm uppercase tracking-wide text-sky-200">Offline minutes served</div>
-        <div class="mt-2 text-3xl font-bold">12,000+</div>
-        <p class="mt-1 text-sky-100/80 text-sm">Learners accessing topics without data.</p>
+        <div class="metric-label">Offline minutes served</div>
+        <div class="metric-value">12,000+</div>
+        <p class="metric-description">Learners accessing topics without data.</p>
       </div>
       <div class="metric-card animate-fade-in-up" style="animation-delay: .12s;">
-        <div class="text-sm uppercase tracking-wide text-sky-200">Languages supported</div>
-        <div class="mt-2 text-3xl font-bold">3</div>
-        <p class="mt-1 text-sky-100/80 text-sm">English, Arabic, and Oromo interface.</p>
+        <div class="metric-label">Languages supported</div>
+        <div class="metric-value">3</div>
+        <p class="metric-description">English, Arabic, and Oromo interface.</p>
       </div>
       <div class="metric-card animate-fade-in-up" style="animation-delay: .19s;">
-        <div class="text-sm uppercase tracking-wide text-sky-200">Lectures curated</div>
-        <div class="mt-2 text-3xl font-bold">160+</div>
-        <p class="mt-1 text-sky-100/80 text-sm">Organized collections by Sheikh Isaqow.</p>
+        <div class="metric-label">Lectures curated</div>
+        <div class="metric-value">160+</div>
+        <p class="metric-description">Organized collections by Sheikh Isaqow.</p>
       </div>
     </div>
   </section>
