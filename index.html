@@ -886,6 +886,30 @@
     feedbackSubmit?.addEventListener('click', async () => {
       const FORMSPREE_ENDPOINT = 'movpplna'; // Formspree form ID
       
+      // Validate required fields
+      const name = feedbackName.value.trim();
+      const email = feedbackEmail.value.trim();
+      
+      if (!name) {
+        alert('Please enter your name.');
+        feedbackName.focus();
+        return;
+      }
+      
+      if (!email) {
+        alert('Please enter your email.');
+        feedbackEmail.focus();
+        return;
+      }
+      
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        feedbackEmail.focus();
+        return;
+      }
+      
       // Get platform info
       const platformInfo = {
         userAgent: navigator.userAgent,
@@ -897,7 +921,8 @@
 
       const feedbackData = {
         sentiment: feedbackSelection || 'no_selection',
-        email: feedbackEmail.value.trim() || 'Not provided',
+        name: name,
+        email: email,
         notes: feedbackNotes.value.trim(),
         page: window.location.href,
         platform: platformInfo,
