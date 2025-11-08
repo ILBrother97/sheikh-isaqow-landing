@@ -14,4 +14,11 @@
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
+  
+  <url>
+    <loc>https://sheikhisaqow.apk.com/</loc>
+    <lastmod>2025-11-08T00:00:00Z</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>
