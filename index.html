@@ -755,14 +755,16 @@
       <div class="mt-4 grid grid-cols-2 gap-3">
         <button class="inline-flex items-center justify-center gap-2 rounded-lg bg-sky-50 px-4 py-3 text-brand-600 font-semibold" data-feedback="positive" type="button">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="m5 13 4 4L19 7"/></svg>
-          It looks great
+          Positive
         </button>
-        <button class="inline-flex items-center justify-center gap-2 rounded-lg bg-rose-50 px-4 py-3 text-rose-500 font-semibold" data-feedback="help" type="button">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-          Needs something
+        <button class="inline-flex items-center justify-center gap-2 rounded-lg bg-rose-50 px-4 py-3 text-rose-500 font-semibold" data-feedback="negative" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6 18L18 6M6 6l12 12"/></svg>
+          Negative
         </button>
       </div>
-      <textarea id="feedback-notes" class="mt-4 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-brand-500 focus:ring-brand-500" rows="3" placeholder="Optional notes"></textarea>
+      <input id="feedback-name" type="text" class="mt-4 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-brand-500 focus:ring-brand-500" placeholder="Your name *" required />
+      <input id="feedback-email" type="email" class="mt-3 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-brand-500 focus:ring-brand-500" placeholder="Your email *" required />
+      <textarea id="feedback-notes" class="mt-3 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-brand-500 focus:ring-brand-500" rows="3" placeholder="Optional notes"></textarea>
       <button id="feedback-submit" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-3 text-white font-semibold hover:bg-brand-500" type="button">
         Send feedback
       </button>
@@ -836,6 +838,8 @@
     const feedbackModal = document.getElementById('feedback-modal');
     const feedbackClose = document.getElementById('feedback-close');
     const feedbackButtons = feedbackModal?.querySelectorAll('[data-feedback]');
+    const feedbackName = document.getElementById('feedback-name');
+    const feedbackEmail = document.getElementById('feedback-email');
     const feedbackNotes = document.getElementById('feedback-notes');
     const feedbackSubmit = document.getElementById('feedback-submit');
     let feedbackSelection = null;
@@ -852,6 +856,8 @@
       document.body.style.overflow = '';
       feedbackSelection = null;
       feedbackButtons?.forEach((btn) => btn.classList.remove('ring-2', 'ring-brand-500'));
+      feedbackName.value = '';
+      feedbackEmail.value = '';
       feedbackNotes.value = '';
     }
 
@@ -880,10 +886,21 @@
     feedbackSubmit?.addEventListener('click', async () => {
       const FORMSPREE_ENDPOINT = 'movpplna'; // Formspree form ID
       
+      // Get platform info
+      const platformInfo = {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        screenResolution: `${window.screen.width}x${window.screen.height}`,
+        viewport: `${window.innerWidth}x${window.innerHeight}`
+      };
+
       const feedbackData = {
         sentiment: feedbackSelection || 'no_selection',
+        email: feedbackEmail.value.trim() || 'Not provided',
         notes: feedbackNotes.value.trim(),
         page: window.location.href,
+        platform: platformInfo,
         timestamp: new Date().toISOString()
       };
 
