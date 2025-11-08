@@ -773,20 +773,75 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Track APK download clicks in GA4
+    
+    // Track APK download clicks in GA4 (only once per user)
     const apkBtn = document.getElementById('apk-download-btn');
     if (apkBtn) {
       apkBtn.addEventListener('click', () => {
+        // Check if user has already downloaded
+        const hasDownloaded = localStorage.getItem('apk_downloaded');
+        
         if (typeof gtag === 'function') {
-          gtag('event', 'apk_download', {
-            event_category: 'download',
-            event_label: 'SheikhIsaqowApp-v1.0.4',
-            value: 1,
-            transport_type: 'beacon'
+          // Track the click event (for all clicks)
+          gtag('event', 'apk_download_click', {
+            event_category: 'engagement',
+            event_label: 'SheikhIsaqowApp-v1.0.5',
+            value: 1
           });
+          
+          // Only count as download if first time
+          if (!hasDownloaded) {
+            gtag('event', 'apk_download', {
+              event_category: 'download',
+              event_label: 'SheikhIsaqowApp-v1.0.5',
+              value: 1,
+              transport_type: 'beacon'
+            });
+            
+            // Mark as downloaded
+            localStorage.setItem('apk_downloaded', 'true');
+            localStorage.setItem('apk_download_date', new Date().toISOString());
+          }
         }
       });
     }
+
+    // Track external store clicks (APKPure, APK.COM) - unique per user
+    const storeLinks = [
+      { id: 'apkpure-card', storageKey: 'apkpure_visited', eventName: 'apkpure_download', label: 'APKPure' },
+      { id: 'apkcom-card', storageKey: 'apkcom_visited', eventName: 'apkcom_download', label: 'APK.COM' }
+    ];
+
+    storeLinks.forEach(({ id, storageKey, eventName, label }) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.addEventListener('click', () => {
+          const hasVisited = localStorage.getItem(storageKey);
+          
+          if (typeof gtag === 'function') {
+            // Track click (all clicks)
+            gtag('event', `${eventName}_click`, {
+              event_category: 'engagement',
+              event_label: label,
+              value: 1
+            });
+            
+            // Only count as download if first time
+            if (!hasVisited) {
+              gtag('event', eventName, {
+                event_category: 'download',
+                event_label: label,
+                value: 1,
+                transport_type: 'beacon'
+              });
+              
+              localStorage.setItem(storageKey, 'true');
+              localStorage.setItem(`${storageKey}_date`, new Date().toISOString());
+            }
+          }
+        });
+      }
+    });
 
     const pendingSources = [
       {
