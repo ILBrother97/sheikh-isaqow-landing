@@ -504,12 +504,12 @@
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <div class="metric-card animate-fade-in-up" style="animation-delay: .05s;">
         <div class="metric-label">Total downloads</div>
-        <div class="metric-value" id="metric-downloads">—</div>
+        <div class="metric-value" id="metric-downloads">1.3k+</div>
         <p class="metric-description">APK installs across all sources.</p>
       </div>
       <div class="metric-card animate-fade-in-up" style="animation-delay: .12s;">
         <div class="metric-label">Active users</div>
-        <div class="metric-value" id="metric-users">—</div>
+        <div class="metric-value" id="metric-users">839+</div>
         <p class="metric-description">Learners engaging with content.</p>
       </div>
       <div class="metric-card animate-fade-in-up" style="animation-delay: .19s;">
@@ -1125,50 +1125,35 @@
       });
     });
 
-    // Fetch metrics from GA4 via metrics.json file
+    // Fetch real-time metrics from Google Analytics 4 via Netlify Function
     async function fetchGA4Metrics() {
-      const fallbackDownloads = '25+';
-      const fallbackUsers = '50+';
-      
-      // Set fallback values immediately
-      const downloadsElement = document.getElementById('metric-downloads');
-      const usersElement = document.getElementById('metric-users');
-      
-      if (downloadsElement) {
-        downloadsElement.textContent = fallbackDownloads;
-      }
-      if (usersElement) {
-        usersElement.textContent = fallbackUsers;
-      }
+      const fallbackDownloads = '1.3k+';
+      const fallbackUsers = '839+';
       
       try {
-        // Try Netlify function first (real GA4 data)
-        let response = await fetch('/.netlify/functions/ga4-metrics');
+        // Try Netlify Function first
+        let response = await fetch('/.netlify/functions/metrics');
         
         // If function fails, try static JSON file
         if (!response.ok) {
-          response = await fetch('/metrics.json?' + new Date().getTime());
+          response = await fetch('/metrics.json');
         }
         
-        if (response.ok) {
-          const data = await response.json();
-          
-          // Update DOM with real GA4 data
-          if (data.downloads && downloadsElement) {
-            downloadsElement.textContent = data.downloads;
-          }
-          if (data.activeUsers && usersElement) {
-            usersElement.textContent = data.activeUsers;
-          }
-          
-          // Log last update time and source
-          if (data.lastUpdated) {
-            console.log(`Metrics updated from ${data.source || 'GA4'}:`, new Date(data.lastUpdated).toLocaleString());
-          }
+        const data = await response.json();
+        
+        // Update DOM with real data
+        document.getElementById('metric-downloads').textContent = data.downloads;
+        document.getElementById('metric-users').textContent = data.activeUsers;
+        
+        // Optional: Log last update time
+        if (data.lastUpdated) {
+          console.log('Metrics updated:', new Date(data.lastUpdated).toLocaleString());
         }
       } catch (error) {
-        console.log('Using fallback metrics (GA4 data not available):', error.message);
-        // Fallback values already set above
+        console.error('Failed to fetch metrics:', error);
+        // Use fallback values if both fail
+        document.getElementById('metric-downloads').textContent = fallbackDownloads;
+        document.getElementById('metric-users').textContent = fallbackUsers;
       }
     }
 
