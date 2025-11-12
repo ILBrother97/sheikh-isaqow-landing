@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ - Sheikh Isaqow Hassan Bora</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Frequently asked questions about the Sheikh Isaqow Hassan Bora Islamic education app. Find answers to common questions about features, usage, and technical support." />
+  <meta name="keywords" content="FAQ, help, support, Islamic app, Sheikh Isaqow Hassan Bora" />
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="FAQ - Sheikh Isaqow Hassan Bora" />
+  <meta property="og:description" content="Find answers to frequently asked questions about the app." />
+  <meta property="og:image" content="https://sheikh-isaqow-hassan-bora.netlify.app/assets/images/icon.png" />
+  <meta property="og:url" content="https://sheikh-isaqow-hassan-bora.netlify.app/faq.html" />
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J2P77ELRJ1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'G-J2P77ELRJ1');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991285636828265"
+       crossorigin="anonymous"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+  <link rel="icon" type="image/png" href="assets/images/icon.png" />
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+    .faq-item {
+      transition: all 0.3s ease;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <a href="index.html" class="flex items-center space-x-3">
+          <img src="assets/images/icon.png" alt="App Icon" class="w-10 h-10 rounded-lg" />
+          <span class="text-xl font-bold text-gray-900">Sheikh Isaqow Hassan Bora</span>
+        </a>
+        <div class="hidden md:flex space-x-6">
+          <a href="index.html" class="text-gray-600 hover:text-sky-500 transition">Home</a>
+          <a href="about.html" class="text-gray-600 hover:text-sky-500 transition">About</a>
+          <a href="faq.html" class="text-sky-500 font-semibold">FAQ</a>
+          <a href="contact.html" class="text-gray-600 hover:text-sky-500 transition">Contact</a>
+        </div>
+        <a href="index.html#download" class="bg-sky-500 text-white px-6 py-2 rounded-lg hover:bg-sky-600 transition">
+          Download App
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-sky-500 to-blue-600 text-white py-20">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h1>
+      <p class="text-xl text-sky-100">Find answers to common questions about the app</p>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4">
+      
+      <!-- General Questions -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">General Questions</h2>
+        
+        <div class="space-y-4">
+          <!-- FAQ Item 1 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">What is this app about?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                The Sheikh Isaqow Hassan Bora app is an Islamic education platform that provides access to authentic lectures, teachings, and religious content from Sheikh Isaqow Hassan Bora. The app aims to make Islamic knowledge accessible to everyone, regardless of their location.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">Is the app free to use?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                Yes, the app is completely free to download and use. All content, including lectures and educational materials, is available at no cost. Our mission is to spread Islamic knowledge freely to everyone.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">Who is Sheikh Isaqow Hassan Bora?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                Sheikh Isaqow Hassan Bora is an Islamic scholar with extensive education in Islamic studies. He holds a Bachelor's degree from Imam Shafi'i University in Adama, Ethiopia, and a Master's degree from the Islamic University of Minnesota, Ethiopia Branch. Learn more on our <a href="about.html" class="text-sky-500 hover:underline">About page</a>.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">What languages are supported?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                The app primarily features content in Arabic and Somali, reflecting the languages used by Sheikh Isaqow Hassan Bora in his teachings. The app interface is available in English for broader accessibility.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features & Usage -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Features & Usage</h2>
+        
+        <div class="space-y-4">
+          <!-- FAQ Item 5 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">Can I use the app offline?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                Yes! The app includes offline functionality. You can download lectures and content to your device and access them without an internet connection. This is perfect for learning on the go or in areas with limited connectivity.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 6 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">How do I navigate the app?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                The app features an intuitive interface with easy navigation. From the home screen, you can browse different categories of lectures, search for specific topics, access your downloaded content, and manage your favorites. Simply tap on any lecture to start listening.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 7 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">How often is new content added?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                We regularly update the app with new lectures and content from Sheikh Isaqow Hassan Bora. Updates are typically released monthly, and you'll receive notifications when new content is available. Make sure to keep your app updated to access the latest teachings.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 8 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">Can I share content with others?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                Yes, you can share lectures and content with friends and family. Each lecture has a share button that allows you to send links via messaging apps, social media, or email. Spreading beneficial knowledge is encouraged!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Support -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Technical Support</h2>
+        
+        <div class="space-y-4">
+          <!-- FAQ Item 9 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">What Android version is required?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                The app requires Android 5.0 (Lollipop) or higher. This ensures compatibility with most modern Android devices while maintaining optimal performance and security.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 10 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">How much storage space does the app need?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                The app itself is lightweight, requiring approximately 20-30 MB. However, if you download lectures for offline listening, you'll need additional storage space depending on how much content you download. We recommend having at least 100 MB of free space available.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 11 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">The app is not working properly. What should I do?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                Try these troubleshooting steps: 1) Make sure you have the latest version of the app installed. 2) Clear the app cache in your device settings. 3) Restart your device. 4) If the problem persists, please contact us through the <a href="contact.html" class="text-sky-500 hover:underline">Contact page</a> with details about the issue.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 12 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">Is my data secure?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                Yes, we take your privacy and security seriously. The app collects minimal data necessary for functionality, and we do not share your personal information with third parties. For more details, please read our <a href="privacy.html" class="text-sky-500 hover:underline">Privacy Policy</a>.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 13 -->
+          <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200">
+            <button class="w-full px-6 py-4 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+              <span class="font-semibold text-gray-900">Will there be an iOS version?</span>
+              <svg class="faq-icon w-5 h-5 text-sky-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="faq-answer px-6 pb-4">
+              <p class="text-gray-600">
+                We are currently focused on providing the best experience for Android users. An iOS version is being considered for future development based on user demand and resources. Stay tuned for updates!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Still Have Questions -->
+      <div class="bg-gradient-to-br from-sky-50 to-blue-50 rounded-2xl p-8 text-center">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Still Have Questions?</h2>
+        <p class="text-gray-600 mb-6">
+          Can't find the answer you're looking for? We're here to help!
+        </p>
+        <a href="contact.html" class="inline-block bg-sky-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-sky-600 transition">
+          Contact Us
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="text-white font-bold mb-4">Sheikh Isaqow Hassan Bora</h3>
+          <p class="text-sm">Islamic education app providing authentic lectures and teachings.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="hover:text-sky-400 transition">Home</a></li>
+            <li><a href="about.html" class="hover:text-sky-400 transition">About</a></li>
+            <li><a href="faq.html" class="hover:text-sky-400 transition">FAQ</a></li>
+            <li><a href="contact.html" class="hover:text-sky-400 transition">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Download</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="https://apkpure.com/p/com.shkisaqowhassanbora" class="hover:text-sky-400 transition" target="_blank">APKPure</a></li>
+            <li><a href="https://sheikhisaqow.apk.com/" class="hover:text-sky-400 transition" target="_blank">APK.COM</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Legal</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="privacy.html" class="hover:text-sky-400 transition">Privacy Policy</a></li>
+            <li><a href="terms.html" class="hover:text-sky-400 transition">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center text-sm">
+        <p>&copy; 2025 Sheikh Isaqow Hassan Bora App. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(button) {
+      const faqItem = button.parentElement;
+      const allFaqItems = document.querySelectorAll('.faq-item');
+      
+      // Close all other items
+      allFaqItems.forEach(item => {
+        if (item !== faqItem) {
+          item.classList.remove('active');
+        }
+      });
+      
+      // Toggle current item
+      faqItem.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
