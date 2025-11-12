@@ -298,6 +298,140 @@
     </div>
   </section>
 
+  <!-- Form Validation Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.querySelector('form[name="contact"]');
+      const submitButton = contactForm.querySelector('button[type="submit"]');
+      
+      // Add real-time validation
+      const requiredFields = contactForm.querySelectorAll('input[required], select[required], textarea[required]');
+      
+      // Function to validate individual field
+      function validateField(field) {
+        const fieldContainer = field.closest('div');
+        let errorElement = fieldContainer.querySelector('.error-message');
+        
+        // Remove existing error message
+        if (errorElement) {
+          errorElement.remove();
+        }
+        
+        let isValid = true;
+        let errorMessage = '';
+        
+        // Check if field is empty
+        if (!field.value.trim()) {
+          isValid = false;
+          errorMessage = `${field.previousElementSibling.textContent.replace(' *', '')} is required`;
+        }
+        
+        // Email specific validation
+        if (field.type === 'email' && field.value.trim()) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(field.value)) {
+            isValid = false;
+            errorMessage = 'Please enter a valid email address';
+          }
+        }
+        
+        // Subject dropdown validation
+        if (field.tagName === 'SELECT' && field.value === '') {
+          isValid = false;
+          errorMessage = 'Please select a subject';
+        }
+        
+        // Show error message if invalid
+        if (!isValid) {
+          field.classList.add('border-red-500', 'focus:ring-red-500');
+          field.classList.remove('border-gray-300', 'focus:ring-sky-500');
+          
+          errorElement = document.createElement('p');
+          errorElement.className = 'error-message text-red-600 text-sm mt-1';
+          errorElement.textContent = errorMessage;
+          fieldContainer.appendChild(errorElement);
+        } else {
+          field.classList.remove('border-red-500', 'focus:ring-red-500');
+          field.classList.add('border-gray-300', 'focus:ring-sky-500');
+        }
+        
+        return isValid;
+      }
+      
+      // Function to validate entire form
+      function validateForm() {
+        let allValid = true;
+        
+        requiredFields.forEach(field => {
+          if (!validateField(field)) {
+            allValid = false;
+          }
+        });
+        
+        return allValid;
+      }
+      
+      // Add event listeners for real-time validation
+      requiredFields.forEach(field => {
+        field.addEventListener('blur', function() {
+          validateField(this);
+        });
+        
+        field.addEventListener('input', function() {
+          // Clear error styling on input
+          if (this.classList.contains('border-red-500')) {
+            validateField(this);
+          }
+        });
+      });
+      
+      // Form submission validation
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default submission
+        
+        // Validate all fields
+        if (!validateForm()) {
+          // Scroll to first error field
+          const firstError = contactForm.querySelector('.border-red-500');
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError.focus();
+          }
+          
+          // Show general error message
+          let generalError = contactForm.querySelector('.general-error');
+          if (!generalError) {
+            generalError = document.createElement('div');
+            generalError.className = 'general-error bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4';
+            generalError.innerHTML = '<strong>⚠️ Please fix the errors above before submitting.</strong>';
+            submitButton.parentNode.insertBefore(generalError, submitButton);
+          }
+          
+          return false;
+        }
+        
+        // Remove any general error message
+        const generalError = contactForm.querySelector('.general-error');
+        if (generalError) {
+          generalError.remove();
+        }
+        
+        // Show loading state
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Sending Message...
+        `;
+        
+        // Submit the form
+        this.submit();
+      });
+    });
+  </script>
+
   <!-- Support Resources -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4">
