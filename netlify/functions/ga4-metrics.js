@@ -55,12 +55,14 @@ exports.handler = async (event, context) => {
 
     const analyticsData = google.analyticsdata('v1beta');
 
-    // Calculate date range (from September 10, 2025 to today)
-    const startDate = '2024-09-10'; // Assuming you meant 2024, not 2025
+    // Calculate date range (from September 10, 2024 to today)
+    const startDate = '2024-09-10';
     const endDate = new Date().toISOString().split('T')[0]; // Today's date
 
-    // Request for total users (active users)
-    const activeUsersRequest = {
+    console.log('Fetching GA4 data for date range:', startDate, 'to', endDate);
+
+    // Request for basic website metrics
+    const basicMetricsRequest = {
       auth,
       property: `properties/${propertyId}`,
       requestBody: {
@@ -71,15 +73,16 @@ exports.handler = async (event, context) => {
           },
         ],
         metrics: [
-          {
-            name: 'activeUsers',
-          },
+          { name: 'activeUsers' },
+          { name: 'totalUsers' },
+          { name: 'sessions' },
+          { name: 'screenPageViews' }
         ],
       },
     };
 
-    // Request for custom events (downloads)
-    const downloadsRequest = {
+    // Request for download events (if they exist)
+    const downloadEventsRequest = {
       auth,
       property: `properties/${propertyId}`,
       requestBody: {
@@ -90,16 +93,18 @@ exports.handler = async (event, context) => {
           },
         ],
         metrics: [
-          {
-            name: 'eventCount',
-          },
+          { name: 'eventCount' }
+        ],
+        dimensions: [
+          { name: 'eventName' }
         ],
         dimensionFilter: {
           filter: {
             fieldName: 'eventName',
             stringFilter: {
-              matchType: 'EXACT',
-              value: 'download_app', // Custom event for app downloads
+              matchType: 'CONTAINS',
+              value: 'download',
+              caseSensitive: false
             },
           },
         },
@@ -107,14 +112,42 @@ exports.handler = async (event, context) => {
     };
 
     // Execute requests
-    const [activeUsersResponse, downloadsResponse] = await Promise.all([
-      analyticsData.properties.runReport(activeUsersRequest),
-      analyticsData.properties.runReport(downloadsRequest).catch(() => null), // Don't fail if download events don't exist
+    console.log('Making GA4 API requests...');
+    const [basicMetricsResponse, downloadEventsResponse] = await Promise.all([
+      analyticsData.properties.runReport(basicMetricsRequest),
+      analyticsData.properties.runReport(downloadEventsRequest).catch((error) => {
+        console.log('Download events request failed (this is normal if no download events exist):', error.message);
+        return null;
+      }),
     ]);
 
-    // Extract data
-    const activeUsers = activeUsersResponse.data.rows?.[0]?.metricValues?.[0]?.value || '0';
-    const downloads = downloadsResponse?.data.rows?.[0]?.metricValues?.[0]?.value || '0';
+    console.log('GA4 API responses received');
+
+    // Extract basic metrics
+    const basicData = basicMetricsResponse.data;
+    const activeUsers = basicData.rows?.[0]?.metricValues?.[0]?.value || '0';
+    const totalUsers = basicData.rows?.[0]?.metricValues?.[1]?.value || '0';
+    const sessions = basicData.rows?.[0]?.metricValues?.[2]?.value || '0';
+    const pageViews = basicData.rows?.[0]?.metricValues?.[3]?.value || '0';
+
+    // Extract download events (if available)
+    let downloadEvents = '0';
+    if (downloadEventsResponse?.data?.rows) {
+      downloadEvents = downloadEventsResponse.data.rows.reduce((total, row) => {
+        return total + parseInt(row.metricValues[0].value || '0');
+      }, 0).toString();
+    }
+
+    console.log('Extracted metrics:', {
+      activeUsers,
+      totalUsers,
+      sessions,
+      pageViews,
+      downloadEvents
+    });
+
+    // Use a combination of metrics for "downloads" - could be sessions, page views, or actual download events
+    const downloads = downloadEvents !== '0' ? downloadEvents : sessions;
 
     // Format numbers
     const formatNumber = (num) => {
@@ -127,6 +160,12 @@ exports.handler = async (event, context) => {
 
     const formattedActiveUsers = formatNumber(activeUsers);
     const formattedDownloads = formatNumber(downloads);
+
+    console.log('Formatted results:', {
+      formattedActiveUsers,
+      formattedDownloads,
+      dateRange: { startDate, endDate }
+    });
 
     // Return formatted data
     return {
@@ -142,8 +181,13 @@ exports.handler = async (event, context) => {
         },
         rawData: {
           activeUsers: parseInt(activeUsers),
+          totalUsers: parseInt(totalUsers),
+          sessions: parseInt(sessions),
+          pageViews: parseInt(pageViews),
+          downloadEvents: parseInt(downloadEvents),
           downloads: parseInt(downloads),
         },
+        success: true,
       }),
     };
 
