@@ -1131,8 +1131,15 @@
       const fallbackUsers = '839+';
       
       try {
-        // Try GA4 Netlify Function
-        let response = await fetch('/.netlify/functions/ga4-metrics');
+        // Try GA4 Netlify Function with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        
+        let response = await fetch('/.netlify/functions/ga4-metrics', {
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
         
         if (response.ok) {
           const data = await response.json();
@@ -1169,6 +1176,13 @@
       } catch (error) {
         console.error('❌ Failed to fetch GA4 metrics:', error);
         console.log('🔄 Using fallback values');
+        
+        // Log specific error type
+        if (error.name === 'AbortError') {
+          console.log('⏰ Request timed out after 10 seconds');
+        } else {
+          console.log('🔍 Error type:', error.name, '- Message:', error.message);
+        }
         
         // Use fallback values if GA4 API fails
         document.getElementById('metric-downloads').textContent = fallbackDownloads;

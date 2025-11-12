@@ -22,19 +22,30 @@ exports.handler = async (event, context) => {
     // GA4 Property ID
     const propertyId = '510252078';
     
-    // Create service account credentials from environment variables
-    const credentials = {
-      type: 'service_account',
-      project_id: process.env.GA4_PROJECT_ID,
-      private_key_id: process.env.GA4_PRIVATE_KEY_ID,
-      private_key: process.env.GA4_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      client_email: process.env.GA4_CLIENT_EMAIL,
-      client_id: process.env.GA4_CLIENT_ID,
-      auth_uri: 'https://accounts.google.com/o/oauth2/auth',
-      token_uri: 'https://oauth2.googleapis.com/token',
-      auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-      client_x509_cert_url: process.env.GA4_CLIENT_CERT_URL,
-    };
+    // Parse GA4 credentials from environment variable
+    let credentials;
+    try {
+      if (process.env.GA4_CREDENTIALS) {
+        // If using single JSON credential
+        credentials = JSON.parse(process.env.GA4_CREDENTIALS);
+      } else {
+        // If using separate environment variables
+        credentials = {
+          type: 'service_account',
+          project_id: process.env.GA4_PROJECT_ID,
+          private_key_id: process.env.GA4_PRIVATE_KEY_ID,
+          private_key: process.env.GA4_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+          client_email: process.env.GA4_CLIENT_EMAIL,
+          client_id: process.env.GA4_CLIENT_ID,
+          auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+          token_uri: 'https://oauth2.googleapis.com/token',
+          auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+          client_x509_cert_url: process.env.GA4_CLIENT_CERT_URL,
+        };
+      }
+    } catch (error) {
+      throw new Error(`Failed to parse GA4 credentials: ${error.message}`);
+    }
 
     // Initialize Google Analytics Data API
     const auth = new google.auth.GoogleAuth({
@@ -138,6 +149,12 @@ exports.handler = async (event, context) => {
 
   } catch (error) {
     console.error('GA4 API Error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      hasCredentials: !!process.env.GA4_CREDENTIALS,
+      propertyId: '510252078'
+    });
     
     // Return fallback data on error
     return {
@@ -147,7 +164,8 @@ exports.handler = async (event, context) => {
         activeUsers: '839+',
         downloads: '1.3k+',
         lastUpdated: new Date().toISOString(),
-        error: 'Using fallback data',
+        error: `GA4 API failed: ${error.message}`,
+        fallback: true,
         dateRange: {
           startDate: '2024-09-10',
           endDate: new Date().toISOString().split('T')[0],
