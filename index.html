@@ -1125,25 +1125,55 @@
       });
     });
 
-    // Set realistic metrics for the app
-    function setAppMetrics() {
-      const downloads = '25+';
-      const activeUsers = '50+';
+    // Fetch metrics from GA4 via metrics.json file
+    async function fetchGA4Metrics() {
+      const fallbackDownloads = '25+';
+      const fallbackUsers = '50+';
       
-      // Update DOM with metrics
+      // Set fallback values immediately
       const downloadsElement = document.getElementById('metric-downloads');
       const usersElement = document.getElementById('metric-users');
       
       if (downloadsElement) {
-        downloadsElement.textContent = downloads;
+        downloadsElement.textContent = fallbackDownloads;
       }
       if (usersElement) {
-        usersElement.textContent = activeUsers;
+        usersElement.textContent = fallbackUsers;
+      }
+      
+      try {
+        // Try Netlify function first (real GA4 data)
+        let response = await fetch('/.netlify/functions/ga4-metrics');
+        
+        // If function fails, try static JSON file
+        if (!response.ok) {
+          response = await fetch('/metrics.json?' + new Date().getTime());
+        }
+        
+        if (response.ok) {
+          const data = await response.json();
+          
+          // Update DOM with real GA4 data
+          if (data.downloads && downloadsElement) {
+            downloadsElement.textContent = data.downloads;
+          }
+          if (data.activeUsers && usersElement) {
+            usersElement.textContent = data.activeUsers;
+          }
+          
+          // Log last update time and source
+          if (data.lastUpdated) {
+            console.log(`Metrics updated from ${data.source || 'GA4'}:`, new Date(data.lastUpdated).toLocaleString());
+          }
+        }
+      } catch (error) {
+        console.log('Using fallback metrics (GA4 data not available):', error.message);
+        // Fallback values already set above
       }
     }
 
     // Load metrics on page load
-    setAppMetrics();
+    fetchGA4Metrics();
   </script>
 </body>
 </html>
