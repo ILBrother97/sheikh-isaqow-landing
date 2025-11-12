@@ -504,12 +504,12 @@
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <div class="metric-card animate-fade-in-up" style="animation-delay: .05s;">
         <div class="metric-label">Total downloads</div>
-        <div class="metric-value" id="metric-downloads">1.3k+</div>
+        <div class="metric-value" id="metric-downloads">Loading...</div>
         <p class="metric-description">APK installs across all sources.</p>
       </div>
       <div class="metric-card animate-fade-in-up" style="animation-delay: .12s;">
         <div class="metric-label">Active users</div>
-        <div class="metric-value" id="metric-users">839+</div>
+        <div class="metric-value" id="metric-users">Loading...</div>
         <p class="metric-description">Learners engaging with content.</p>
       </div>
       <div class="metric-card animate-fade-in-up" style="animation-delay: .19s;">
@@ -1131,29 +1131,61 @@
       const fallbackUsers = '839+';
       
       try {
-        // Try Netlify Function first
-        let response = await fetch('/.netlify/functions/metrics');
+        // Try GA4 Netlify Function
+        let response = await fetch('/.netlify/functions/ga4-metrics');
         
-        // If function fails, try static JSON file
-        if (!response.ok) {
-          response = await fetch('/metrics.json');
+        if (response.ok) {
+          const data = await response.json();
+          
+          // Update DOM with GA4 data
+          document.getElementById('metric-downloads').textContent = data.downloads;
+          document.getElementById('metric-users').textContent = data.activeUsers;
+          
+          // Log success with date range
+          console.log('✅ GA4 Metrics loaded successfully');
+          console.log('📊 Data from:', data.dateRange?.startDate, 'to', data.dateRange?.endDate);
+          console.log('📈 Downloads:', data.downloads, '| Active Users:', data.activeUsers);
+          if (data.lastUpdated) {
+            console.log('🕒 Last updated:', new Date(data.lastUpdated).toLocaleString());
+          }
+          
+          // Add visual indicator that data is live
+          const downloadCard = document.getElementById('metric-downloads').closest('.metric-card');
+          const usersCard = document.getElementById('metric-users').closest('.metric-card');
+          
+          if (downloadCard && !data.error) {
+            downloadCard.style.borderLeft = '4px solid #10b981';
+            downloadCard.title = `Live data from GA4 (${data.dateRange?.startDate} to ${data.dateRange?.endDate})`;
+          }
+          if (usersCard && !data.error) {
+            usersCard.style.borderLeft = '4px solid #10b981';
+            usersCard.title = `Live data from GA4 (${data.dateRange?.startDate} to ${data.dateRange?.endDate})`;
+          }
+          
+        } else {
+          throw new Error(`GA4 API failed with status: ${response.status}`);
         }
         
-        const data = await response.json();
-        
-        // Update DOM with real data
-        document.getElementById('metric-downloads').textContent = data.downloads;
-        document.getElementById('metric-users').textContent = data.activeUsers;
-        
-        // Optional: Log last update time
-        if (data.lastUpdated) {
-          console.log('Metrics updated:', new Date(data.lastUpdated).toLocaleString());
-        }
       } catch (error) {
-        console.error('Failed to fetch metrics:', error);
-        // Use fallback values if both fail
+        console.error('❌ Failed to fetch GA4 metrics:', error);
+        console.log('🔄 Using fallback values');
+        
+        // Use fallback values if GA4 API fails
         document.getElementById('metric-downloads').textContent = fallbackDownloads;
         document.getElementById('metric-users').textContent = fallbackUsers;
+        
+        // Add visual indicator for fallback data
+        const downloadCard = document.getElementById('metric-downloads').closest('.metric-card');
+        const usersCard = document.getElementById('metric-users').closest('.metric-card');
+        
+        if (downloadCard) {
+          downloadCard.style.borderLeft = '4px solid #f59e0b';
+          downloadCard.title = 'Fallback data (GA4 API unavailable)';
+        }
+        if (usersCard) {
+          usersCard.style.borderLeft = '4px solid #f59e0b';
+          usersCard.title = 'Fallback data (GA4 API unavailable)';
+        }
       }
     }
 

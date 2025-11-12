@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "node-fetch": "^2.6.7",
-    "google-auth-library": "^8.9.0"
+    "google-auth-library": "^8.9.0",
+    "googleapis": "^128.0.0"
   }
 }
