@@ -819,7 +819,11 @@
   </div>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Set current year (only if element exists)
+    const yearElement = document.getElementById('year');
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
     
     // Track APK download clicks in GA4 (only once per user)
     const apkBtn = document.getElementById('apk-download-btn');
@@ -1144,9 +1148,16 @@
         if (response.ok) {
           const data = await response.json();
           
-          // Update DOM with GA4 data
-          document.getElementById('metric-downloads').textContent = data.downloads;
-          document.getElementById('metric-users').textContent = data.activeUsers;
+          // Update DOM with GA4 data (with null checks)
+          const downloadsElement = document.getElementById('metric-downloads');
+          const usersElement = document.getElementById('metric-users');
+          
+          if (downloadsElement) {
+            downloadsElement.textContent = data.downloads;
+          }
+          if (usersElement) {
+            usersElement.textContent = data.activeUsers;
+          }
           
           // Log success with date range
           console.log('✅ GA4 Metrics loaded successfully');
@@ -1157,8 +1168,8 @@
           }
           
           // Add visual indicator that data is live
-          const downloadCard = document.getElementById('metric-downloads').closest('.metric-card');
-          const usersCard = document.getElementById('metric-users').closest('.metric-card');
+          const downloadCard = downloadsElement?.closest('.metric-card');
+          const usersCard = usersElement?.closest('.metric-card');
           
           if (downloadCard && !data.error) {
             downloadCard.style.borderLeft = '4px solid #10b981';
@@ -1184,13 +1195,20 @@
           console.log('🔍 Error type:', error.name, '- Message:', error.message);
         }
         
-        // Use fallback values if GA4 API fails
-        document.getElementById('metric-downloads').textContent = fallbackDownloads;
-        document.getElementById('metric-users').textContent = fallbackUsers;
+        // Use fallback values if GA4 API fails (with null checks)
+        const downloadsElement = document.getElementById('metric-downloads');
+        const usersElement = document.getElementById('metric-users');
+        
+        if (downloadsElement) {
+          downloadsElement.textContent = fallbackDownloads;
+        }
+        if (usersElement) {
+          usersElement.textContent = fallbackUsers;
+        }
         
         // Add visual indicator for fallback data
-        const downloadCard = document.getElementById('metric-downloads').closest('.metric-card');
-        const usersCard = document.getElementById('metric-users').closest('.metric-card');
+        const downloadCard = downloadsElement?.closest('.metric-card');
+        const usersCard = usersElement?.closest('.metric-card');
         
         if (downloadCard) {
           downloadCard.style.borderLeft = '4px solid #f59e0b';
