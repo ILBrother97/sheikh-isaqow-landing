@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sheikh-isaqow-hassan-bora.netlify.app/</loc>
+    <lastmod>2025-11-05T00:00:00Z</lastmod>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <!-- External download pages -->
+  <url>
+    <loc>https://apkpure.com/p/com.shkisaqowhassanbora</loc>
+    <lastmod>2025-11-04T00:00:00Z</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <url>
+    <loc>https://sheikhisaqow.apk.com/</loc>
+    <lastmod>2025-11-08T00:00:00Z</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+</urlset>

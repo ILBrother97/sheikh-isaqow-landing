@@ -1,0 +1,6 @@
+# robots.txt for sheikh-isaqow-hassan-bora.netlify.app
+User-agent: *
+Allow: /
+
+Sitemap: https://sheikh-isaqow-hassan-bora.netlify.app/sitemap.xml
+Sitemap: https://sheikh-isaqow-hassan-bora.netlify.app/sitemap-1.xml

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4096" height="4096" viewBox="0 0 4096 4096" role="img" aria-label="Seamless elegant Islamic geometric pattern with thin gold lines on white">
+  <defs>
+    <pattern id="islamicGoldTile" width="384" height="384" patternUnits="userSpaceOnUse">
+      <rect width="384" height="384" fill="#ffffff"/>
+
+      <g fill="none" stroke="#b99245" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Primary geometric framework -->
+        <g stroke-width="0.82" stroke-opacity="0.84">
+          <path d="M0 0H384M0 96H384M0 192H384M0 288H384M0 384H384"/>
+          <path d="M0 0V384M96 0V384M192 0V384M288 0V384M384 0V384"/>
+
+          <path d="M0 0L384 384M384 0L0 384"/>
+          <path d="M0 96L288 384M96 0L384 288M0 288L96 384M288 0L384 96"/>
+          <path d="M96 384L384 96M0 288L288 0M0 96L96 0M288 384L384 288"/>
+        </g>
+
+        <!-- Central medallion -->
+        <g stroke-width="0.78" stroke-opacity="0.88">
+          <path d="M192 20L364 192L192 364L20 192Z"/>
+          <path d="M56 56H328V328H56Z"/>
+          <path d="M192 58L326 192L192 326L58 192Z"/>
+          <circle cx="192" cy="192" r="104"/>
+          <circle cx="192" cy="192" r="68"/>
+          <circle cx="192" cy="192" r="34"/>
+        </g>
+
+        <!-- Subtle arabesque details -->
+        <g stroke-width="0.58" stroke-opacity="0.70">
+          <path d="M192 0C208 17 208 39 192 55C176 39 176 17 192 0Z"/>
+          <path d="M384 192C367 208 345 208 329 192C345 176 367 176 384 192Z"/>
+          <path d="M192 384C176 367 176 345 192 329C208 345 208 367 192 384Z"/>
+          <path d="M0 192C17 176 39 176 55 192C39 208 17 208 0 192Z"/>
+
+          <path d="M0 0C29 11 47 29 58 58C29 47 11 29 0 0Z"/>
+          <path d="M384 0C373 29 355 47 326 58C337 29 355 11 384 0Z"/>
+          <path d="M384 384C355 373 337 355 326 326C355 337 373 355 384 384Z"/>
+          <path d="M0 384C11 355 29 337 58 326C47 355 29 373 0 384Z"/>
+
+          <path d="M96 96C116 103 132 119 139 139C119 132 103 116 96 96Z"/>
+          <path d="M288 96C281 116 265 132 245 139C252 119 268 103 288 96Z"/>
+          <path d="M288 288C268 281 252 265 245 245C265 252 281 268 288 288Z"/>
+          <path d="M96 288C103 268 119 252 139 245C132 265 116 281 96 288Z"/>
+        </g>
+
+        <!-- Fine connector accents -->
+        <g stroke-width="0.52" stroke-opacity="0.62">
+          <path d="M96 192Q144 144 192 96Q240 144 288 192Q240 240 192 288Q144 240 96 192Z"/>
+          <path d="M144 192Q168 168 192 144Q216 168 240 192Q216 216 192 240Q168 216 144 192Z"/>
+        </g>
+
+        <g fill="#b99245" stroke="none" fill-opacity="0.72">
+          <circle cx="192" cy="192" r="1.3"/>
+          <circle cx="96" cy="96" r="1.05"/>
+          <circle cx="288" cy="96" r="1.05"/>
+          <circle cx="288" cy="288" r="1.05"/>
+          <circle cx="96" cy="288" r="1.05"/>
+        </g>
+      </g>
+    </pattern>
+  </defs>
+
+  <rect width="4096" height="4096" fill="url(#islamicGoldTile)"/>
+</svg>
