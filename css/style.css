@@ -187,9 +187,18 @@ h1, h2, h3, h4 {
     cursor: default;
 }
 
-.scroll-hint svg {
+.scroll-hand {
+    display: none;
+}
+
+.scroll-hint svg.scroll-mouse {
     width: 28px;
     height: 44px;
+}
+
+.scroll-hint svg.scroll-hand {
+    width: 32px;
+    height: 32px;
 }
 
 .scroll-hint span {
@@ -765,6 +774,20 @@ header {
 
     .md-hidden {
         display: none !important;
+    }
+
+    .scroll-hint {
+        top: 30%;
+        bottom: auto;
+        right: 16px;
+    }
+
+    .scroll-mouse {
+        display: none;
+    }
+
+    .scroll-hand {
+        display: block;
     }
 }
 
