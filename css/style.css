@@ -566,6 +566,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .nav-logo {
@@ -686,43 +687,46 @@ header {
     }
 
     .nav-links {
-        position: fixed;
-        top: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
         right: 0;
-        bottom: 0;
-        width: 280px;
         z-index: 100000;
         background: var(--background);
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        box-shadow: -8px 0 30px rgba(0, 0, 0, 0.1);
-        transform: translateX(100%);
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 20px 24px;
+        gap: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 16px 16px;
+        border-bottom: 1px solid var(--border-soft);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
     .nav-links.open {
-        transform: translateX(0);
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
     }
 
     .nav-links .nav-link {
-        font-size: 20px;
-        padding: 14px 28px;
-        border-radius: 12px;
+        font-size: 18px;
+        padding: 12px 20px;
+        border-radius: 10px;
         color: var(--text-primary);
         text-align: center;
-        width: 220px;
+        width: 100%;
     }
 
     .nav-links .nav-btn {
         font-size: 15px;
         padding: 0 32px;
         min-height: 48px;
-    }
-
-    body.nav-open {
-        overflow: hidden;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
     }
 
     .md-hidden {
@@ -738,21 +742,6 @@ header {
     .nav-toggle {
         display: none;
     }
-}
-
-#nav-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-#nav-overlay.open {
-    display: block;
-    opacity: 1;
 }
 
 .stat-icon-wrapper {
