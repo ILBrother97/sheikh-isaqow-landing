@@ -724,6 +724,10 @@ header {
     body.nav-open {
         overflow: hidden;
     }
+
+    .md-hidden {
+        display: none !important;
+    }
 }
 
 @media (min-width: 768px) {
