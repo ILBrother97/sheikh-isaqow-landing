@@ -59,7 +59,7 @@ h1, h2, h3, h4 {
     padding: 0 24px;
 }
 
-/* Background Pattern (Global) — CSS-drawn Islamic geometric */
+/* Background Pattern (Global) — Warm ambient glow + 8-star geometric tile */
 .bg-pattern {
     position: fixed;
     top: 0;
@@ -67,28 +67,29 @@ h1, h2, h3, h4 {
     width: 100%;
     height: 100%;
     background:
-        repeating-conic-gradient(from 0deg at 50% 50%,
-            transparent 0deg, transparent 86deg,
-            rgba(200,169,106,0.06) 86deg, rgba(200,169,106,0.06) 90deg
-        ) 0 0 / 160px 160px,
-        repeating-conic-gradient(from 22.5deg at 50% 50%,
-            transparent 0deg, transparent 86deg,
-            rgba(200,169,106,0.04) 86deg, rgba(200,169,106,0.04) 90deg
-        ) 0 0 / 160px 160px,
-        repeating-conic-gradient(from 0deg at 50% 50%,
-            transparent 0deg, transparent 87deg,
-            rgba(200,169,106,0.03) 87deg, rgba(200,169,106,0.03) 90deg
-        ) 80px 80px / 160px 160px,
-        repeating-conic-gradient(from 22.5deg at 50% 50%,
-            transparent 0deg, transparent 87deg,
-            rgba(200,169,106,0.02) 87deg, rgba(200,169,106,0.02) 90deg
-        ) 80px 80px / 160px 160px,
-        repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(200,169,106,0.04) 79px, rgba(200,169,106,0.04) 80px),
-        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(200,169,106,0.04) 79px, rgba(200,169,106,0.04) 80px);
-    background-size: 160px 160px, 160px 160px, 160px 160px, 160px 160px, 80px 80px, 80px 80px;
+        /* Warm gold ambient glow (center-top) */
+        radial-gradient(ellipse 900px 700px at 50% 25%,
+            rgba(200, 169, 106, 0.08) 0%,
+            transparent 100%),
+        /* Secondary glow (lower-left) */
+        radial-gradient(ellipse 600px 600px at 15% 85%,
+            rgba(200, 169, 106, 0.04) 0%,
+            transparent 100%),
+        /* Accent glow (top-right) */
+        radial-gradient(ellipse 400px 400px at 85% 15%,
+            rgba(200, 169, 106, 0.03) 0%,
+            transparent 100%),
+        /* Dark vignette — draws eye to center */
+        radial-gradient(ellipse at 50% 50%,
+            transparent 40%,
+            rgba(0, 0, 0, 0.04) 100%),
+        /* Tiled 8-pointed star Islamic geometric pattern */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg stroke='%23C8A96A' stroke-width='1.2' fill='none' opacity='0.15'%3E%3Cpolygon points='120,25 187.2,52.8 215,120 187.2,187.2 120,215 52.8,187.2 25,120 52.8,52.8'/%3E%3Cpolygon points='120,70 155.4,84.6 170,120 155.4,155.4 120,170 84.6,155.4 70,120 84.6,84.6'/%3E%3Cline x1='120' y1='25' x2='120' y2='0'/%3E%3Cline x1='215' y1='120' x2='240' y2='120'/%3E%3Cline x1='120' y1='215' x2='120' y2='240'/%3E%3Cline x1='25' y1='120' x2='0' y2='120'/%3E%3Cline x1='187.2' y1='52.8' x2='240' y2='0'/%3E%3Cline x1='52.8' y1='52.8' x2='0' y2='0'/%3E%3Cline x1='187.2' y1='187.2' x2='240' y2='240'/%3E%3Cline x1='52.8' y1='187.2' x2='0' y2='240'/%3E%3Cline x1='120' y1='25' x2='120' y2='215'/%3E%3Cline x1='25' y1='120' x2='215' y2='120'/%3E%3Cline x1='25' y1='25' x2='215' y2='215'/%3E%3Cline x1='215' y1='25' x2='25' y2='215'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: auto, auto, auto, auto, 240px 240px;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
     z-index: -1;
     pointer-events: none;
-    animation: bgPatternShift 180s linear infinite;
+    animation: bgPatternShift 300s linear infinite;
 }
 
 /* Pattern Utility Classes for Sections */
@@ -104,8 +105,8 @@ h1, h2, h3, h4 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg stroke='%23C8A96A' stroke-width='1.5' fill='none' opacity='0.12'%3E%3Cpath d='M0 300h600M300 0v600'/%3E%3Cpath d='M42 42l516 516M42 558l516-516'/%3E%3Crect x='200' y='200' width='200' height='200'/%3E%3Crect x='200' y='200' width='200' height='200' transform='rotate(45 300 300)'/%3E%3Crect x='100' y='100' width='400' height='400'/%3E%3Crect x='100' y='100' width='400' height='400' transform='rotate(45 300 300)'/%3E%3Cpath d='M300 42l184.5 73.5L558 300l-73.5 184.5L300 558l-184.5-73.5L42 300l73.5-184.5z'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 700px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg stroke='%23C8A96A' stroke-width='1.5' fill='none' opacity='0.12'%3E%3Cpolygon points='300,30 491,159 570,300 491,441 300,570 109,441 30,300 109,159'/%3E%3Cpolygon points='300,120 440,190 480,300 440,410 300,480 160,410 120,300 160,190'/%3E%3Cpolygon points='300,170 429,229 470,300 429,371 300,430 171,371 130,300 171,229'/%3E%3Cpolygon points='300,52 548,300 300,548 52,300'/%3E%3Cpolygon points='423,52 548,177 548,423 423,548 177,548 52,423 52,177 177,52'/%3E%3Cline x1='300' y1='30' x2='300' y2='570'/%3E%3Cline x1='30' y1='300' x2='570' y2='300'/%3E%3Cline x1='109' y1='109' x2='491' y2='491'/%3E%3Cline x1='491' y1='109' x2='109' y2='491'/%3E%3Ccircle cx='300' cy='300' r='200'/%3E%3Ccircle cx='300' cy='300' r='100'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 900px;
     background-repeat: no-repeat;
     z-index: -1;
     pointer-events: none;
@@ -169,6 +170,39 @@ h1, h2, h3, h4 {
     font-size: 18px;
     max-width: 600px;
     margin: 0 auto 40px;
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--primary-dark);
+    opacity: 0.75;
+    filter: drop-shadow(0 1px 4px rgba(200, 169, 106, 0.25));
+    animation: scrollHintBounce 2.5s ease-in-out infinite;
+    cursor: default;
+}
+
+.scroll-hint svg {
+    width: 28px;
+    height: 44px;
+}
+
+.scroll-hint span {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    writing-mode: vertical-rl;
+}
+
+@keyframes scrollHintBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.75; }
+    50% { transform: translateY(8px); opacity: 1; }
 }
 
 .hero-image-container {
@@ -802,14 +836,26 @@ header {
 
 /* Value Prop */
 .value-prop {
-    padding: 80px 20px;
+    padding: 100px 20px;
     text-align: center;
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 10px auto 0;
 }
 
 .grid-2x2 {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 24px;
     margin-top: 48px;
     max-width: 900px;
     margin-left: auto;
@@ -818,24 +864,44 @@ header {
 
 .prop-card {
     background: var(--surface);
-    padding: 24px;
+    padding: 28px 24px;
     border-radius: var(--radius-md);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
     border: 1px solid var(--border-soft);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prop-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -12px rgba(200, 169, 106, 0.25);
 }
 
 .prop-icon {
-    width: 48px;
-    height: 48px;
-    background: var(--background);
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    background: linear-gradient(135deg, rgba(200, 169, 106, 0.15), rgba(200, 169, 106, 0.04));
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--primary);
     flex-shrink: 0;
+}
+
+.prop-content h4 {
+    margin-bottom: 6px;
+    font-size: 17px;
+}
+
+.prop-content p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
 }
 
 /* App Preview */
@@ -1183,8 +1249,8 @@ footer {
 }
 
 @keyframes bgPatternShift {
-    0% { background-position: 0 0; }
-    100% { background-position: 160px 80px; }
+    0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+    100% { background-position: 0 0, 0 0, 0 0, 0 0, 120px 60px; }
 }
 
 @keyframes patternSpin {
