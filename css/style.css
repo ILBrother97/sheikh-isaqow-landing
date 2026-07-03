@@ -707,6 +707,7 @@ header {
     border: none;
     cursor: pointer;
     padding: 10px;
+    position: relative;
     z-index: 100001;
 }
 
