@@ -1018,6 +1018,87 @@ footer {
     100% { transform: rotate(360deg); }
 }
 
+/* Turnstile Security Overlay */
+#turnstile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-conic-gradient(from 0deg at 50% 50%,
+      transparent 0deg, transparent 86deg,
+      rgba(200,169,106,0.12) 86deg, rgba(200,169,106,0.12) 90deg
+    ) 0 0 / 160px 160px,
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(200,169,106,0.08) 79px, rgba(200,169,106,0.08) 80px),
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(200,169,106,0.08) 79px, rgba(200,169,106,0.08) 80px);
+  background-color: var(--background);
+  transition: opacity 0.6s ease;
+}
+
+#turnstile-overlay.turnstile-overlay--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.turnstile-card {
+  background: rgba(255,248,231,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow-gold);
+}
+
+.turnstile-logo {
+  height: 48px;
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+.turnstile-title {
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.turnstile-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.turnstile-spinner {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.turnstile-ring {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-soft);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: turnstileSpin 0.8s linear infinite;
+}
+
+.turnstile-widget {
+  display: flex;
+  justify-content: center;
+  min-height: 65px;
+}
+
+@keyframes turnstileSpin {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes bgPatternShift {
     0% { background-position: 0 0; }
     100% { background-position: 160px 80px; }
