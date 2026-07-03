@@ -15,7 +15,6 @@ Single-page marketing site for the Android app (package `com.shkisaqowhassanbora
 - **Authority section** — biography with Islamic geometric pattern background
 - **App features** — card grid with icons, screenshots, and hover transitions
 - **Screenshot carousel** — showcases the app UI across three devices
-- **Download section** — links to Google Play, Uptodown, APKPure, and direct APK
 - **Footer** — app details, social links, privacy/terms, and copyright
 - **Additional pages** — About, FAQ, Contact, Terms, Privacy, Thank You
 - **Dark theme** — warm gold/amber color palette with purple accent tones
@@ -26,61 +25,6 @@ Single-page marketing site for the Android app (package `com.shkisaqowhassanbora
 
 ---
 
-## Project Structure
-
-```
-/
-├── index.html                  # Main landing page
-├── about.html                  # About page
-├── contact.html                # Contact page
-├── faq.html                    # Frequently asked questions
-├── terms.html                  # Terms of service
-├── privacy.html                # Privacy policy
-├── thank-you.html              # Post-download thank you page
-├── download-sources.html       # Alternative download sources
-│
-├── assets/
-│   ├── images/
-│   │   ├── sheikh-profile.webp       # Hero profile image
-│   │   ├── logo.webp                 # Header logo
-│   │   ├── logo-no-circle-min.webp   # Minimal logo variant
-│   │   ├── screenshot-*.png          # App screenshots
-│   │   ├── apkpure_logo.webp         # APKPure store logo
-│   │   └── apkcom_logo.webp          # APKCombo store logo
-│   │
-│   ├── favicon/
-│   │   ├── favicon.ico               # Legacy favicon
-│   │   ├── favicon.svg               # Scalable favicon
-│   │   ├── favicon.webp              # Modern favicon
-│   │   ├── favicon-96x96.webp        # 96px favicon
-│   │   ├── apple-touch-icon.webp     # iOS home screen icon
-│   │   ├── web-app-manifest-192x192.webp
-│   │   ├── web-app-manifest-512x512.webp
-│   │   └── site.webmanifest          # PWA web manifest
-│   │
-│   ├── fonts/
-│   │   ├── Cormorant-Bold.ttf
-│   │   └── CormorantSC-SemiBold.ttf
-│   │
-│   └── apk/
-│       └── SheikhIsaqowApp-v1.0.5.apk
-│
-├── css/
-│   ├── style.css              # Primary stylesheet
-│   ├── about.css               # About page styles
-│   └── contact.css             # Contact page styles
-│
-├── js/
-│   └── script.js               # Site interactions and carousel
-│
-├── photos/                     # Source/raw images (not served)
-├── AGENTS.md                   # Project instructions for AI coding
-├── .gitignore
-├── README.md
-└── robots.txt
-```
-
----
 
 ## Tech Stack
 
