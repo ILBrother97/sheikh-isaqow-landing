@@ -701,24 +701,27 @@ header {
         position: fixed;
         inset: 0;
         z-index: 100000;
-        background: rgba(248, 246, 241, 0.97);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: var(--background);
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 16px;
+        gap: 24px;
     }
 
-    .nav-links .nav-link {
+    .nav-links.open .nav-link {
         font-size: 20px;
-        padding: 12px 24px;
+        padding: 14px 28px;
         border-radius: 12px;
+        color: var(--text-primary);
+        width: 100%;
+        max-width: 260px;
+        text-align: center;
     }
 
-    .nav-links .nav-btn {
+    .nav-links.open .nav-btn {
         font-size: 15px;
         padding: 0 32px;
+        min-height: 48px;
     }
 
     body.nav-open {
