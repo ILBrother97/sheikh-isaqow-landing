@@ -1434,12 +1434,22 @@ footer {
   align-items: center;
   justify-content: center;
   background:
-    repeating-conic-gradient(from 0deg at 50% 50%,
-      transparent 0deg, transparent 86deg,
-      rgba(200,169,106,0.12) 86deg, rgba(200,169,106,0.12) 90deg
-    ) 0 0 / 160px 160px,
-    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(200,169,106,0.08) 79px, rgba(200,169,106,0.08) 80px),
-    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(200,169,106,0.08) 79px, rgba(200,169,106,0.08) 80px);
+    /* Warm gold ambient glow (center-top) */
+    radial-gradient(ellipse 900px 700px at 50% 25%,
+      rgba(200, 169, 106, 0.08) 0%,
+      transparent 100%),
+    /* Secondary glow (lower-left) */
+    radial-gradient(ellipse 600px 600px at 15% 85%,
+      rgba(200, 169, 106, 0.04) 0%,
+      transparent 100%),
+    /* Dark vignette */
+    radial-gradient(ellipse at 50% 50%,
+      transparent 40%,
+      rgba(0, 0, 0, 0.04) 100%),
+    /* Tiled 8-pointed star Islamic geometric pattern */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg stroke='%23C8A96A' stroke-width='1.2' fill='none' opacity='0.15'%3E%3Cpolygon points='120,25 187.2,52.8 215,120 187.2,187.2 120,215 52.8,187.2 25,120 52.8,52.8'/%3E%3Cpolygon points='120,70 155.4,84.6 170,120 155.4,155.4 120,170 84.6,155.4 70,120 84.6,84.6'/%3E%3Cline x1='120' y1='25' x2='120' y2='0'/%3E%3Cline x1='215' y1='120' x2='240' y2='120'/%3E%3Cline x1='120' y1='215' x2='120' y2='240'/%3E%3Cline x1='25' y1='120' x2='0' y2='120'/%3E%3Cline x1='187.2' y1='52.8' x2='240' y2='0'/%3E%3Cline x1='52.8' y1='52.8' x2='0' y2='0'/%3E%3Cline x1='187.2' y1='187.2' x2='240' y2='240'/%3E%3Cline x1='52.8' y1='187.2' x2='0' y2='240'/%3E%3Cline x1='120' y1='25' x2='120' y2='215'/%3E%3Cline x1='25' y1='120' x2='215' y2='120'/%3E%3Cline x1='25' y1='25' x2='215' y2='215'/%3E%3Cline x1='215' y1='25' x2='25' y2='215'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto, auto, auto, 240px 240px;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-color: var(--background);
   transition: opacity 0.6s ease;
 }
